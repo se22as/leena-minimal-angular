@@ -29,11 +29,13 @@ Configure cec command-line for your instance
 > $ cec register-server myCompany -e https://myCompany.cec.ocp.oraclecloud.com -u myCECUser -p myCECPassword
 
 Create a repository and channel:
-> $ cec create-repository -s myCompany FooTutorialRepository<br/>
+> $ cec create-repository -s myCompany FooTutorialRepository
+
 > $ cec create-channel -s myCompany FooTutorialChannel
 
 Upload the content:
-> $ cd footutorial<br/>
+> $ cd footutorial
+
 > $ cec upload-content ./tutorialcontent.zip -s myCompany -c FooTutorialChannel -r FooTutorialRepo
 
 Publish the content:

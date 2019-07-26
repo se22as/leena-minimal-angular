@@ -49,10 +49,10 @@ Import the Content SDK to the project:
 * What do we do here?  I think you can do an npm install contentsdk but unsure whether the SDK that was downloaded needs to be in a specific location etc.?
 
 Configure the projet to use your CEC instance and channel:
-> something
+> edit hostname & channel token in some source file for the developer's server
 
 Complete the function XYZ to find content of type TUV:
-> something else
+> show some code here using a delivery client to fetch some content items and map them into some model objects that are already defined in the code
 
 etc.
 > more

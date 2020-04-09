@@ -1,1 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
+
+/**
+ * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+ * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+ */
+
+.footer-icons{    
+    width: 28px;
+    height:28px;
+    margin: 0 10px 0 0;
+    display:inline-block;
+}

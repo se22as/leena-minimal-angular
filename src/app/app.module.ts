@@ -10,6 +10,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home.component';
 import { ContactUsComponent } from './contactus.component';
+import { HeaderComponent } from './header.component';
+import { FooterComponent } from './footer.component';
 
 
 const appRoutes: Routes = [
@@ -34,7 +36,9 @@ const appRoutes: Routes = [
     declarations: [
         AppComponent,
         HomeComponent,
-        ContactUsComponent
+        ContactUsComponent,
+        HeaderComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,

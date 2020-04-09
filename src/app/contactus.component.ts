@@ -4,6 +4,7 @@
  */
 
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 /**
  * Component for the Contact Us page.
@@ -13,6 +14,13 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './contactus.component.html'
 })
 export class ContactUsComponent implements OnInit {
+
+    /*
+    * Set the title in the constructor. 
+    */
+   constructor(private titleService: Title) {
+       this.titleService.setTitle("Contact Us");
+   }
 
     ngOnInit(){
         // Do any code to get data from the server

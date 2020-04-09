@@ -4,6 +4,7 @@
  */
 
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 /**
  * Component for the Home page.
@@ -13,6 +14,13 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './home.component.html'
 })
 export class HomeComponent implements OnInit {
+
+    /*
+     * Set the title in the constructor. 
+     */
+    constructor(private titleService: Title) {
+        this.titleService.setTitle("Home");
+    }
 
     ngOnInit(){
         // Do any code to get data from the server

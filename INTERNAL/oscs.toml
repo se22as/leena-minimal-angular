@@ -1,0 +1,8 @@
+# Open Source Compliance Service data file
+# For consumption by oscs_approvals.py
+# File format: https://github.com/toml-lang/toml/blob/master/README.md
+
+name = "oce-minimal-angular"
+
+baids = [
+]

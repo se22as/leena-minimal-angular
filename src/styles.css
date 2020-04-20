@@ -4,9 +4,17 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
-.footer-icons{    
-    width: 28px;
-    height:28px;
-    margin: 0 10px 0 0;
-    display:inline-block;
+/**
+ * Styles for the whole application.
+ * 
+ * Styles for each component are with the components.
+ */
+
+ body {
+    margin: 0;
+    font-family: -apple-system, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    max-width: 1700px;
+    margin: 0 auto;
+    line-height: normal;
+    color: #403C38;
 }

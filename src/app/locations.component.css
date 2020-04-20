@@ -1,0 +1,22 @@
+/**
+ * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+ */
+
+/**
+ *  Styles for the Location component.
+ */
+ 
+/* Style for the main locations div */
+.locations-container {
+    background-color: #696969;
+}
+
+/* Style for the Locations title */
+.locations-title {
+    color:#ffffff;
+}
+
+/* Style for the Locations address text */
+.locations-text {
+    color:#ffffff;    
+}

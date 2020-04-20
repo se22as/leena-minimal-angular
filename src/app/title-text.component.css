@@ -1,0 +1,51 @@
+/**
+ * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+ */
+
+/**
+ * Styles for text itles and sub text, used in "ConnectWithUs", "Locations"
+ * and the "Welcome" Components.
+ */
+
+/* Style for the main div */
+.text-container {
+    padding: .01px;
+    width: 100%;
+    display: inline-block;
+    -webkit-margin-collapse: separate;
+    position: relative;
+    max-width: 100%;
+    display: inline-block;
+    vertical-align: bottom;
+    width: 100%;
+}
+
+/* Style for the main div in smaller screens */
+@media screen and (max-width: 767px) {
+    .text-container{
+        width: 100% !important;
+        float: left;
+    }
+}
+
+/* Style for the title */
+.main-title {
+    overflow: auto;
+    word-wrap: break-word;
+    font-size: 40px;
+    margin-top:3vw;
+    margin-right:6vw;
+    margin-bottom:1.8vw;
+    margin-left:6vw;
+}
+
+/* Style for the text */
+.sub-text {
+    overflow: auto;
+    word-wrap: break-word;
+    font-size: 14px;
+    margin-top:1.2vw;
+    margin-right:6vw;
+    margin-bottom:3vw;
+    margin-left:6vw;
+}

@@ -1,0 +1,21 @@
+/**
+ * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+ */
+
+/**
+ * Styles for the Connect With Us Component.
+ */
+
+ .connect-with-us-link,
+ .connect-with-us-link:visited
+ {
+     color: #0092CB;
+     text-decoration: none;    
+ }
+ 
+ .connect-with-us-link:hover,
+ .connect-with-us-link:focus{
+     color: #01C5FF;
+     text-decoration: none;
+ }
+ 

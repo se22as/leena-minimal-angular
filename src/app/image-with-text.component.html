@@ -1,0 +1,31 @@
+<!-- 
+  Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+  Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+-->
+
+<!--
+  HTML for the Image With Text Component.
+-->
+
+<div class="image-container" [ngStyle]="{ 'background-image': 'url(' + backgroundImage + ')'}">
+
+    <div class="image-text-container">
+
+        <!--Title text overlaid on image -->
+        <div class="image-main-title">
+            {{mainTitle}}
+        </div> 
+
+        <!-- Sub text overlaid on image -->
+        <div class={{subTextStyles}}>
+            {{subText}}
+        </div>             
+
+        <!-- Button displayed only if there is button text and button URL -->
+        <a *ngIf="buttonText && buttonUrl" class="image-button" href={{buttonUrl}}>
+            {{buttonText}}
+        </a>
+
+    </div> 
+    
+</div> 

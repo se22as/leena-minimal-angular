@@ -8,22 +8,25 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home.component';
-import { ContactUsComponent } from './contactus.component';
-import { HeaderComponent } from './header.component';
+import { ConnectWithUsComponent } from './connect-with-us.component';
+import { ContactUsPageComponent } from './contact-us-page.component';
 import { FooterComponent } from './footer.component';
-
+import { HeaderComponent } from './header.component';
+import { HomePageComponent } from './home-page.component';
+import { ImageWithTextComponent } from './image-with-text.component';
+import { LocationsComponent } from './locations.component';
+import { WelcomeComponent } from './welcome.component';
 
 const appRoutes: Routes = [
     // home page
     {
         path: 'home',
-        component: HomeComponent,
+        component: HomePageComponent,
     },
     // Contact us page
     {
         path: 'contact',
-        component: ContactUsComponent,
+        component: ContactUsPageComponent,
     },
     // no path specified, go to home
     {
@@ -35,10 +38,14 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [
         AppComponent,
-        HomeComponent,
-        ContactUsComponent,
+        ConnectWithUsComponent,
+        ContactUsPageComponent,
+        FooterComponent,
         HeaderComponent,
-        FooterComponent
+        HomePageComponent,
+        ImageWithTextComponent,
+        LocationsComponent,
+        WelcomeComponent
     ],
     imports: [
         BrowserModule,

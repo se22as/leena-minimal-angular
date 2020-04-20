@@ -7,16 +7,16 @@
  *  MAIN entry point into this Application
  *
  * "angular.json" is a JSON file that defines the settings for this application,
- * in that file,  under "projects> architect > build > options" there are the 
+ * in that file,  under "projects> architect > build > options" there are the
  * following two settings
  *    "index": "src/index.html",
  *    "main": "src/main.ts",
  *
- * This tells Angular that the HTML page for this application is "index.html" 
+ * This tells Angular that the HTML page for this application is "index.html"
  * (our app code will add HTML into this page).
- *  
+ *
  * It also tells us that "main.ts" (this file) is the starting Angular/TypeScript/JavaScript
- * file to execute. This file loads up the "./app/app.module" module which in turn loads 
+ * file to execute. This file loads up the "./app/app.module" module which in turn loads
  * the component "app.component"
  */
 

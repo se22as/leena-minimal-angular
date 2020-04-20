@@ -1,0 +1,145 @@
+/**
+ * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+ */
+
+/**
+ * Style for an Image with 2 text items (an optionally a button) 
+ * displayed ontop.
+ */
+ 
+/* Style for the main div */ 
+.image-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100% !important;
+    float: left;
+    background-attachment: scroll;
+	background-position: center;
+	background-repeat: no-repeat;
+    background-size: cover;	
+}
+
+/* Style for the element containing the text to display over the image */ 
+.image-text-container {
+    flex: 0 0 57%;
+}
+
+/* Style for the title */
+.image-main-title {
+    overflow: auto;
+    word-wrap: break-word;
+    color:#ffffff;  
+
+    font-size: 40px;
+
+    margin-top:6vw;
+    margin-right:6vw;
+    margin-bottom:2.9vw;
+    margin-left:6vw;
+}
+
+/* Style for the text */
+.image-sub-text {
+    overflow: auto;
+    word-wrap: break-word;
+    color:#ffffff;
+
+    font-size: 24px;    
+
+    margin-top:2vw;
+    margin-right:6vw;
+    margin-bottom:7vw;
+    margin-left:6vw;
+}
+
+/* 
+ * Style for the element containing the text to display over the image 
+ * for narrow screens
+ */ 
+@media screen and (max-width: 1023px) {
+    /* Style for the element containing the text to display over the image */ 
+    .image-text-container {
+        flex: 0 0 100%;
+    }
+
+    /* Style for the title */
+    .image-main-title {
+        overflow: auto;
+        word-wrap: break-word;
+        color:#ffffff;  
+
+        font-size: 40px;
+
+        margin-top:6vw;
+        margin-right:6vw;
+        margin-bottom:7.4vw;
+        margin-left:6vw;
+    }
+
+    /* Style for the text */
+    .image-sub-text {
+        overflow: auto;
+        word-wrap: break-word;
+        color:#ffffff;
+
+        font-size: 24px;    
+
+        margin-top:2vw;
+        margin-right:6vw;
+        margin-bottom:9.5vw;
+        margin-left:6vw;
+    }
+
+    .image-sub-text-margin-adjustment {
+        margin-bottom:3vw;
+    }
+}
+
+
+/* Style for the button */
+.image-button {
+    position: relative;
+    max-width: 100%;
+    display: inline-block;
+    vertical-align: bottom;
+    text-align:left;
+
+    background-color:#c0d600;
+    color:#58595b;
+    font-size:24px;
+    font-family:'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    border-color:#808080;
+    border-radius:0px;
+    border-width:1px;
+    border-style:none;
+
+    padding: 11px;
+    margin-top:0.6vw;
+    margin-right:0.3vw;
+    margin-bottom:3vw;
+    margin-left:6vw;
+    
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+
+    white-space: nowrap;
+    cursor: default;
+    text-decoration: none;
+}
+
+/* Style for the button when hovered over */
+.image-button:hover {
+    background-color:#e1fa00;
+    color:#58595b;
+    border-color:rgba(34, 34, 221, 0);
+}
+
+/* additional styling for the sub text */
+.image-sub-text-margin-adjustment {
+    margin-bottom:1.1vw;
+}
+

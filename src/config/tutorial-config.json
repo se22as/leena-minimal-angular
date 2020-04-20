@@ -1,5 +1,5 @@
 {
-  "serverUrl": "https://samples-oce0001.cec.ocp.oraclecloud.com",
-  "apiVersion": "v1.1",
-  "channelToken": "47c9fb78774d4485bc7090bf7b955632"
+    "serverUrl": "https://ocemobile-oce0002.cec.ocp.oraclecloud.com",
+    "apiVersion": "v1.1",
+    "channelToken": "5a2bacaadc85407aa2392d5cdea78ead"
 }

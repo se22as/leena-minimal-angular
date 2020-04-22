@@ -23,7 +23,7 @@ export class HomePageComponent implements OnInit {
      * Set the title in the constructor.
      */
     constructor(private titleService: Title) {
-        this.titleService.setTitle('Home Angular');
+        this.titleService.setTitle('Home - Angular');
     }
 
     // variables whoses values are set in ngOnInit from data returned

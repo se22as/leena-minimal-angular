@@ -7,22 +7,22 @@
   HTML for the Image With Text Component.
 -->
 
-<div class="image-container" [ngStyle]="{ 'background-image': 'url(' + backgroundImage + ')'}">
+<div id="image-with-text-container" class="image-container" [ngStyle]="{ 'background-image': 'url(' + backgroundImage + ')'}">
 
     <div class="image-text-container">
 
         <!--Title text overlaid on image -->
-        <div class="image-main-title">
+        <div id="image-with-text-title" class="image-main-title">
             {{mainTitle}}
         </div> 
 
         <!-- Sub text overlaid on image -->
-        <div class={{subTextStyles}}>
+        <div id="image-with-text-text" class={{subTextStyles}}>
             {{subText}}
         </div>             
 
         <!-- Button displayed only if there is button text and button URL -->
-        <a *ngIf="buttonText && buttonUrl" class="image-button" href={{buttonUrl}}>
+        <a id="image-with-text-button" *ngIf="buttonText && buttonUrl" class="image-button" href={{buttonUrl}}>
             {{buttonText}}
         </a>
 

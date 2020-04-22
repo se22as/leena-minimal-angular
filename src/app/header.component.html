@@ -7,12 +7,12 @@
   HTML for the Header Component.
 -->
 
-<div class="header">
+<div id="header" class="header">
 
     <!-- Header Logo -->
     <div class="header-column">
         <a class="header-logo" [routerLink]="['/']" >
-            <img src={{logoUrl}} alt="Company Logo" />
+            <img id="header-image" src={{logoUrl}} alt="Company Logo" />
         </a>
     </div> 
 
@@ -21,8 +21,8 @@
         <div class="header-nav navMenu">
             <div class="menuButton">☰</div>
             <ul class="menuItems">
-                <li><a style="text-decoration: none;" [routerLink]="['/']">Home</a></li>
-                <li><a style="text-decoration: none;" [routerLink]="['/contact']">Contact Us</a></li>
+                <li><a id="header-link-home" style="text-decoration: none;" [routerLink]="['/']">Home</a></li>
+                <li><a id="header-link-contactus" style="text-decoration: none;" [routerLink]="['/contact']">Contact Us</a></li>
             </ul>
         </div>
     </div>

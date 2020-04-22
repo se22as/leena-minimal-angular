@@ -107,7 +107,6 @@
     color: #e1fa00;
 }
 
-
 @media screen and (max-width: 1023px) {
     .navMenu {
         text-align: right;
@@ -120,16 +119,25 @@
         position: fixed;
         background-color: #333333;
 		
-        /* NOTE: Matching dropdown menu up to what the right margin is set to in the Component so that it stays in line with the dropdown button */		
-        right: 10vw;    
-    }
-    .navMenu .menuItems {
+        /* NOTE: Matching dropdown menu up to what the right margin 
+          is set to in the Component so that it stays in line with the dropdown button */		
+        right: 6vw;
+    
         list-style-type: none;
         margin: 0;
         overflow: hidden;
         z-index: 99;
+    
+        border-width: 2px;
+        border-style: solid;
+        border-color: #797979;         
+        display: none;
     }    
-	
+
+    .navMenu .menuItems.displayed {
+        display: block;
+    }
+
     .navMenu .menuButton {
         display: inline-block;
     }
@@ -137,12 +145,7 @@
     .navMenu li a {
         text-align: left;
     }
-    .navMenu .menuItems {
-        display: none;
-        border-width: 2px;
-        border-style: solid;
-        border-color: #797979;         
-    }
+
     .navMenu.active .menuItems {
         display: block;
     }

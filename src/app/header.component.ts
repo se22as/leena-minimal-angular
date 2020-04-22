@@ -21,4 +21,16 @@ export class HeaderComponent {
     // (note: these could also be referenced in the HTML)
     @Input() logoUrl: string;
 
+    /*
+    * Show/hide the drop down menu in narrow screens when the
+    * button is clicked.
+    */
+    onMenuClick() {
+        const x = document.getElementById('navListItems');
+        if (x.className === 'menuItems') {
+            x.className += ' displayed';
+        } else {
+            x.className = 'menuItems';
+        }
+    }
 }

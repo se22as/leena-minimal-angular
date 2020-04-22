@@ -19,8 +19,8 @@
     <!-- Menu : Home | Contact Us -->
     <div class="header-column">
         <div class="header-nav navMenu">
-            <div class="menuButton">☰</div>
-            <ul class="menuItems">
+            <div class="menuButton" (click)="onMenuClick()">☰</div>
+            <ul class="menuItems" id="navListItems">
                 <li><a id="header-link-home" style="text-decoration: none;" [routerLink]="['/']">Home</a></li>
                 <li><a id="header-link-contactus" style="text-decoration: none;" [routerLink]="['/contact']">Contact Us</a></li>
             </ul>

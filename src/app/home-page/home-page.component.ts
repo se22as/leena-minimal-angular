@@ -6,24 +6,25 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
-import {getDeliveryClient} from '../scripts/server-config-utils';
-import {fetchImageURLs} from '../scripts/services';
+import {getDeliveryClient} from '../../scripts/server-config-utils';
+import {fetchImageURLs} from '../../scripts/services';
+
 
 /**
- * Component for the Contact Us page.
+ * Component for the Home page.
  */
 @Component({
-    selector: 'app-contact-us',
-    templateUrl: './contact-us-page.component.html'
+    selector: 'app-home',
+    templateUrl: './home-page.component.html'
 })
-export class ContactUsPageComponent implements OnInit {
+export class HomePageComponent implements OnInit {
 
     /*
-    * Set the title in the constructor.
-    */
-   constructor(private titleService: Title) {
-       this.titleService.setTitle("Contact Us - Angular");
-   }
+     * Set the title in the constructor.
+     */
+    constructor(private titleService: Title) {
+        this.titleService.setTitle('Home - Angular');
+    }
 
     // variables whoses values are set in ngOnInit from data returned
     // from the server and are referenced from the html file
@@ -43,7 +44,7 @@ export class ContactUsPageComponent implements OnInit {
         .then((urls) => {
             this.headerLogoURL = urls.headerLogoURL;
             this.footerLogoURL = urls.footerLogoURL;
-            this.imageURL = urls.contactUsImageURL;
+            this.imageURL = urls.homeImageURL;
         })
         .catch(error => {
             console.error(error);

@@ -8,15 +8,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ConnectWithUsComponent } from './connect-with-us.component';
-import { ContactUsPageComponent } from './contact-us-page.component';
-import { FooterComponent } from './footer.component';
-import { HeaderComponent } from './header.component';
-import { HomePageComponent } from './home-page.component';
-import { ImageWithTextComponent } from './image-with-text.component';
-import { LocationsComponent } from './locations.component';
-import { WelcomeComponent } from './welcome.component';
-import { LayoutComponent } from './layout.component';
+import { ConnectWithUsComponent } from './connect-with-us/connect-with-us.component';
+import { ContactUsPageComponent } from './contact-us-page/contact-us-page.component';
+import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './header/header.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { ImageWithTextComponent } from './image-with-text/image-with-text.component';
+import { LocationsComponent } from './locations/locations.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { LayoutComponent } from './layout/layout.component';
 
 const appRoutes: Routes = [
     // home page

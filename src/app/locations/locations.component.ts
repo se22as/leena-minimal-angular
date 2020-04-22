@@ -6,15 +6,15 @@
 import { Component } from '@angular/core';
 
 /**
- * Component for the Welcome component.
+ * Component for the Locations component.
  *
  * This component is just HTML, there is no logic.
  */
 @Component({
-    selector: 'app-welcome',
-    templateUrl: './welcome.component.html',
-    styleUrls : ['./welcome.component.css', './title-text.component.css']
+    selector: 'app-locations',
+    templateUrl: './locations.component.html',
+    styleUrls: ['./locations.component.css', '../../title-text.css']
 })
-export class WelcomeComponent  {
+export class LocationsComponent {
 
 }

@@ -16,6 +16,7 @@ import { HomePageComponent } from './home-page.component';
 import { ImageWithTextComponent } from './image-with-text.component';
 import { LocationsComponent } from './locations.component';
 import { WelcomeComponent } from './welcome.component';
+import { LayoutComponent } from './layout.component';
 
 const appRoutes: Routes = [
     // home page
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
         HomePageComponent,
         ImageWithTextComponent,
         LocationsComponent,
-        WelcomeComponent
+        WelcomeComponent,
+        LayoutComponent
     ],
     imports: [
         BrowserModule,

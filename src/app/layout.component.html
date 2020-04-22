@@ -1,0 +1,15 @@
+<!-- 
+  Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+  Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+-->
+
+<!--
+  Component for main layout for any page in the application.
+
+  This component is just HTML, there is no logic.
+-->
+<div>
+    <app-header logoUrl={{headerLogoURL}}></app-header>    
+    <ng-content></ng-content>
+    <app-footer logoUrl={{footerLogoURL}}></app-footer>
+</div>

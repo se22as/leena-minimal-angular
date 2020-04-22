@@ -6,8 +6,7 @@
 <!--
   HTML for the Home page.
 -->
-<div>
-    <app-header logoUrl={{headerLogoURL}}></app-header>
+<app-layout headerLogoURL={{headerLogoURL}} footerLogoURL={{footerLogoURL}}>
 
     <div id="home-container">    
         <app-image-with-text 
@@ -18,5 +17,4 @@
         <app-welcome></app-welcome>
     </div>
     
-    <app-footer logoUrl={{footerLogoURL}}></app-footer>
-</div>
+</app-layout>

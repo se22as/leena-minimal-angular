@@ -4,6 +4,7 @@
  */
 
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 /**
  * Component for the Header.
@@ -21,11 +22,21 @@ export class HeaderComponent {
     // (note: these could also be referenced in the HTML)
     @Input() logoUrl: string;
 
+    // variables whoses values are set in ngOnInit and are referenced from the html file
+    currentNavIndex: number;
+
+    /**
+     * Determine which Menu Item should be highlighted.
+     */
+    constructor(private router: Router ) {
+        this.currentNavIndex = (this.router.url === '/contact') ? 1 : 0;
+    }
+
     /*
     * Show/hide the drop down menu in narrow screens when the
     * button is clicked.
     */
-    onMenuClick() {
+   onDropDownMenuButtonClicked() {
         const x = document.getElementById('navListItems');
         if (x.className === 'menuItems') {
             x.className += ' displayed';
@@ -33,4 +44,18 @@ export class HeaderComponent {
             x.className = 'menuItems';
         }
     }
+
+    /*
+     * Update the currentNavIndex when a menu item is clicked upon.
+     */
+    /*
+    NOTE: THIS IS ONLY NEEDED IF WE MOVE THE LAYOUT (HEADER/FOOTER) TO OUTSIDE THE ROUTER
+    SO ONLY THE MIDDLE SECTION IS ROUTED AND UPDATED ON PAGE CHANGE.
+    WHEN UNCOMMENTING THIS YOU ALSO NEED TO UNCOMMENT WHERE IT IS CALLED
+    */
+   /*
+    onMenuItemClicked(index) {
+        this.currentNavIndex = index;
+    }
+    */
 }

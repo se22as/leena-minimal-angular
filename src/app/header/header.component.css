@@ -65,21 +65,26 @@
 .navMenu li:hover {
     color: #e1fa00;
 }
+
 .navMenu li a.active:hover {
     color: #e1fa00;
-}            
+}        
+
 .navMenu li a:hover:not(.active) {
     color: #e1fa00;
-}            
+}   
+
 .navMenu ul {
     padding-left: 0;
 }
+
 .navMenu .menuItems {
     list-style-type: none;
     margin: 0;
     overflow: hidden;
     z-index: 99;
 }
+
 .navMenu li a {
     display: block;
     color: #797979;
@@ -87,6 +92,11 @@
     text-align: center;    
     text-decoration: none;
 }
+
+.navMenu li a.active {
+    color: #C0D600;
+}
+
 .navMenu a.active {
     color: #C0D600;
 }
@@ -103,6 +113,7 @@
 .navMenu.active .menuButton {
     color: #C0D600                
 }  
+
 .navMenu .menuButton:hover {
     color: #e1fa00;
 }
@@ -110,11 +121,13 @@
 @media screen and (max-width: 1023px) {
     .navMenu {
         text-align: right;
-    }    
+    } 
+
     .navMenu li {
         float: none;
         min-width: 200px;        
     }
+
     .navMenu .menuItems {
         position: fixed;
         background-color: #333333;
@@ -148,7 +161,5 @@
 
     .navMenu.active .menuItems {
         display: block;
-    }
-	
-	
+    }		
 }

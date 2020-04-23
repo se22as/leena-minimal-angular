@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import {getDeliveryClient} from '../../scripts/server-config-utils';
-import {fetchImageURLs} from '../../scripts/services';
-
+import {fetchImageNameAndURLs} from '../../scripts/services';
 
 /**
  * Component for the Home page.
@@ -39,12 +38,10 @@ export class HomePageComponent implements OnInit {
         // get the client to connect to CEC
         const deliveryClient = getDeliveryClient();
 
-        // get the URLS for the images to display in this application
-        fetchImageURLs(deliveryClient)
+        // get the URLs for the image to display in this component
+        fetchImageNameAndURLs(deliveryClient, ['Banner1.jpg'])
         .then((urls) => {
-            this.headerLogoURL = urls.headerLogoURL;
-            this.footerLogoURL = urls.footerLogoURL;
-            this.imageURL = urls.homeImageURL;
+            this.imageURL = urls['Banner1.jpg']
         })
         .catch(error => {
             console.error(error);

@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
 import {getDeliveryClient} from '../../scripts/server-config-utils';
-import {fetchImageURLs} from '../../scripts/services';
+import {fetchImageNameAndURLs} from '../../scripts/services';
 
 /**
  * Component for the Contact Us page.
@@ -22,7 +22,7 @@ export class ContactUsPageComponent implements OnInit {
     * Set the title in the constructor.
     */
    constructor(private titleService: Title) {
-       this.titleService.setTitle("Contact Us - Angular");
+       this.titleService.setTitle('Contact Us - Angular');
    }
 
     // variables whoses values are set in ngOnInit from data returned
@@ -38,12 +38,10 @@ export class ContactUsPageComponent implements OnInit {
         // get the client to connect to CEC
         const deliveryClient = getDeliveryClient();
 
-        // get the URLS for the images to display in this application
-        fetchImageURLs(deliveryClient)
+        // get the URLs for the image to display in this component
+        fetchImageNameAndURLs(deliveryClient, ['Banner2.jpg'])
         .then((urls) => {
-            this.headerLogoURL = urls.headerLogoURL;
-            this.footerLogoURL = urls.footerLogoURL;
-            this.imageURL = urls.contactUsImageURL;
+            this.imageURL = urls['Banner2.jpg']
         })
         .catch(error => {
             console.error(error);

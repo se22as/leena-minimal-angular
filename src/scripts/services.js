@@ -8,7 +8,6 @@
   * from the server using the ContentSDK JavaScript Library.
  */
 
- 
 /**
  * Fetch the URLs for all images used in the application.
  * 
@@ -21,71 +20,27 @@ export function fetchImageURLs(client) {
         "fields": "all"
     }).then(function (result) {  
                         
-        var homePageImageGUID, contactUsImageGUID, headerLogoGUID, footerLogoGUID;
+        var homeImageURL, contactUsImageURL, headerLogoURL, footerLogoURL;
         var items = result.items;
         for (var i = 0; i < items.length; i++) {
             if (items[i].name === "Banner1.jpg"){
-                homePageImageGUID = items[i].id;
+                homeImageURL = client.getRenditionURL({"id" : items[i].id});                
             } else if (items[i].name === "Banner2.jpg"){
-                contactUsImageGUID = items[i].id;
+                contactUsImageURL = client.getRenditionURL({"id" : items[i].id});      
             } else if (items[i].name === "Logo.png"){
-                headerLogoGUID = items[i].id;
+                headerLogoURL = client.getRenditionURL({"id" : items[i].id});      
             } else if (items[i].name === "Powered_by_OCE.png"){
-                footerLogoGUID = items[i].id;
+                footerLogoURL = client.getRenditionURL({"id" : items[i].id});      
             }            
         }
 
-        // Header logo
-        return getRenditionURL(client, headerLogoGUID)
-        .then((url) => {
-            var headerLogoURL = url;
-            
-            // Footer logo
-            return getRenditionURL(client, footerLogoGUID)
-            .then((url) => {
-                var footerLogoURL = url;                
-
-                // Home Page image
-                return getRenditionURL(client, homePageImageGUID)
-                .then((url) => {
-                    var homeImageURL = url;
-
-                    // Contact Us image
-                    return getRenditionURL(client, contactUsImageGUID)
-                    .then((url) => {
-                        var contactUsImageURL = url;
-
-                        const urls = {
-                            headerLogoURL : headerLogoURL,
-                            footerLogoURL : footerLogoURL,
-                            homeImageURL : homeImageURL,
-                            contactUsImageURL : contactUsImageURL
-                        }                         
-                        return urls;                        
-                    })
-                    .catch(error => console.error(error));                      
-
-                })
-                .catch(error => console.error(error));  
-
-            })            
-            .catch(error => console.error(error));          
-
-        })
-        .catch(error => console.error(error));                              
+        const urls = {
+            headerLogoURL : headerLogoURL,
+            footerLogoURL : footerLogoURL,
+            homeImageURL : homeImageURL,
+            contactUsImageURL : contactUsImageURL
+        }            
+        
+        return urls;        
     });
-}
-
-/**
- * Return the rendition URL for the specified item.
- * 
- * @param {DeliveryClient} client - The delivery client which will execute the search
- * @param {String} identifier - the Id of the item whose rendition URL is required
- * @returns {String} - the rendition URL
- */
-export function getRenditionURL(client, identifier) { 
-    let url = client.getRenditionURL({
-        "id" : identifier
-    });
-    return Promise.resolve(url);
 }

@@ -17,6 +17,7 @@ import {fetchImageNameAndURLs} from '../../scripts/services';
     templateUrl: './layout.component.html'
 })
 export class LayoutComponent implements OnInit {
+    loading = true;
 
     // variables whoses values are set in ngOnInit from data returned
     // from the server and are referenced from the html file
@@ -35,6 +36,7 @@ export class LayoutComponent implements OnInit {
         .then((urls) => {
             this.headerLogoURL = urls['Logo.png'],
             this.footerLogoURL = urls['Powered_by_OCE.png']
+            this.loading = false;
         })
         .catch(error => {
             console.error(error);

@@ -46,16 +46,15 @@ export class HeaderComponent {
     }
 
     /*
-     * Update the currentNavIndex when a menu item is clicked upon.
+     * Handle an item being clicked on from the menu
      */
-    /*
-    NOTE: THIS IS ONLY NEEDED IF WE MOVE THE LAYOUT (HEADER/FOOTER) TO OUTSIDE THE ROUTER
-    SO ONLY THE MIDDLE SECTION IS ROUTED AND UPDATED ON PAGE CHANGE.
-    WHEN UNCOMMENTING THIS YOU ALSO NEED TO UNCOMMENT WHERE IT IS CALLED
-    */
-   /*
     onMenuItemClicked(index) {
+        // set the current nav index
         this.currentNavIndex = index;
+
+        // Close the menu
+        const x = document.getElementById('navListItems');
+        x.className = 'menuItems';
     }
-    */
+
 }

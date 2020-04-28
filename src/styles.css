@@ -10,11 +10,13 @@
  * Styles for each component are with the components.
  */
 
- body {
-    margin: 0;
+body {
     font-family: -apple-system, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    max-width: 1700px;
-    margin: 0 auto;
-    line-height: normal;
-    color: #403C38;
+    margin: 0;
+    max-width: 1700px;   
+}
+
+h1 {
+    font-size: 40px; 
+    font-weight: normal;
 }

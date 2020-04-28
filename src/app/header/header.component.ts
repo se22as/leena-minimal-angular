@@ -33,15 +33,19 @@ export class HeaderComponent {
     }
 
     /*
-    * Show/hide the drop down menu in narrow screens when the
-    * button is clicked.
-    */
+     * Show/hide the drop down menu in narrow screens when the 
+     * button is clicked and update the button styling.
+     */
    onDropDownMenuButtonClicked() {
-        const x = document.getElementById('navListItems');
-        if (x.className === 'menuItems') {
-            x.className += ' displayed';
+        const navMenuItems = document.getElementById('nav-menu-items');
+        const button = document.getElementById('nav-menu-button');
+
+        if (navMenuItems.className === '') {
+            navMenuItems.className = 'displayed';
+            button.className = 'active';
         } else {
-            x.className = 'menuItems';
+            navMenuItems.className = '';
+            button.className = '';
         }
     }
 
@@ -52,9 +56,11 @@ export class HeaderComponent {
         // set the current nav index
         this.currentNavIndex = index;
 
-        // Close the menu
-        const x = document.getElementById('navListItems');
+        // Close the menu and update the button styling
+        const x = document.getElementById('nav-menu-items');
+        const button = document.getElementById('nav-menu-button');
         x.className = 'menuItems';
+        button.className = '';
     }
 
 }

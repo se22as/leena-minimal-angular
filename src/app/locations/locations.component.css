@@ -6,17 +6,16 @@
  *  Styles for the Location component.
  */
  
-/* Style for the main locations div */
-.locations-container {
+.locations {
     background-color: #696969;
+    color: white;
 }
 
-/* Style for the Locations title */
-.locations-title {
-    color:#ffffff;
-}
-
-/* Style for the Locations address text */
-.locations-text {
-    color:#ffffff;    
-}
+@media screen and (max-width: 1023px) {
+    .locations {
+        padding-bottom: 3vw; 
+    }
+    .locations .text {
+        margin-top: 0vw;
+    }
+} 

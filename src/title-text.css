@@ -9,45 +9,27 @@
  *   "Welcome" 
  */
 
-/* Style for the main div */
-.text-container {
-    padding: .01px;
-    width: 100%;
-    display: inline-block;
-    -webkit-margin-collapse: separate;
-    position: relative;
-    max-width: 100%;
-    display: inline-block;
-    vertical-align: bottom;
-    width: 100%;
-}
+ .content {
+    color: #403C38; 
+    padding-left: 6vw;
+    padding-right: 6vw;
 
-/* Style for the main div in smaller screens */
-@media screen and (max-width: 767px) {
-    .text-container{
-        width: 100% !important;
-        float: left;
-    }
+    padding-top: 1vw;
+    padding-bottom: 3vw; 
 }
-
-/* Style for the title */
-.main-title {
-    overflow: auto;
-    word-wrap: break-word;
-    font-size: 40px;
-    margin-top:3vw;
-    margin-right:6vw;
-    margin-bottom:1.8vw;
-    margin-left:6vw;
-}
-
-/* Style for the text */
-.sub-text {
-    overflow: auto;
-    word-wrap: break-word;
+.text {
     font-size: 14px;
-    margin-top:1.2vw;
-    margin-right:6vw;
-    margin-bottom:3vw;
-    margin-left:6vw;
+    margin-top: 2.7vw;  
+}
+
+@media screen and (max-width: 1023px) {
+    .content {
+        padding-bottom: 6.3vw; 
+    }    
+    .content h1 {
+        margin-top: 2vw;
+    }
+    .text {        
+        margin-top: 8vw;
+    }
 }

@@ -6,67 +6,39 @@
  *  Styles for the Footer component.
  */
 
-/* Style for the main footer tag */
-.footer {
+/* Style specific to the footer */
+footer {
     background-color: #333333;
-    margin-left: 0;
-    margin-right: 0;
-    display: table;
-    table-layout: fixed;
-    width: 100%;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-left: 6vw;
+    padding-right: 6vw;
+    padding-top: 0.9vw;
+    padding-bottom: 1vw;
 }
 
-/* Style for splitting the footer into columns using table layout */
-.footer-column {
-    display: table-cell;
-    vertical-align: top;
-    float: none;
-    width: 100%;
-    position: relative;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+/* Styles for the social media bar and buttons */
+.social-media-menu {
+    margin-top:1vw;
 }
-
-/* Style for splitting the footer into columns using table layout
-   on a small screen */
-@media screen and (max-width: 767px) {
-    .footer-column {
-        width: 100% !important;
-        float: left;
-    }
-}
-
-/* The style for the logo in the footer */
-.footer-logo {
-    display: inline-block;
-    margin-top:0.9vw;
-    margin-right:0px;
-    margin-bottom:9px;
-    margin-left:6vw;
-}
-
- /* Style for the bar containing the Social Media Icons */
-.social-media-icons-bar {
-    position: relative;
-    max-width: 100%;
-    display: block;
-    float:right;
-    margin-top:1.8vw;
-    margin-right:6vw;
-    margin-bottom:1.8vw;
-    margin-left:0.3vw;
-}
-
-/* Style for a Social Media Icon */
-.social-media-icon {
-    vertical-align: bottom;
-    border: none;
-    outline: none;
-    background-size: contain;
+.social-media-menu img {
     width: 24px; 
-	height: 24px; 
-	display: inline-block;
-	margin: 0px 5px 0px 0px;
+    height: 24px; 
+    margin: 0px 5px 0px 0px;
+}
+
+/* Style for the footer on a small screen
+   Social bar is on a row below the icon */
+@media screen and (max-width: 767px) {
+    footer {
+        flex-direction: column;
+    }
+    
+    /* Styles for the social media bar and buttons */
+    .social-media-menu {
+        margin-top:2.8vw;        
+        align-self: flex-end;
+    }
 }

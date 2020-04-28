@@ -26,14 +26,15 @@ export class ImageWithTextComponent implements OnInit {
     @Input() buttonUrl: string;
 
     // determined styles
-    subTextStyles: string;
+    textClassNames: string;
     imageBackgroundStyle: string;
 
     /*
      * Get the data from the server and populate above variables
      */
     ngOnInit() {
-        this.subTextStyles = this.buttonText ? 'image-sub-text image-sub-text-margin-adjustment' : 'image-sub-text';
+        this.textClassNames = this.buttonText ? 'text adjust-margins' : 'text';
+
     }
 
 }

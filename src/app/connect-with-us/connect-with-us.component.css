@@ -6,16 +6,17 @@
  * Styles for the Connect With Us Component.
  */
 
- .connect-with-us-link,
- .connect-with-us-link:visited
- {
-     color: #0092CB;
-     text-decoration: none;    
- }
- 
- .connect-with-us-link:hover,
- .connect-with-us-link:focus{
-     color: #01C5FF;
-     text-decoration: none;
- }
- 
+/* adjust the padding bottom for the contact us text
+   to make it smaller */
+   .connect-with-us {
+    padding-bottom: 1.8vw; 
+}
+
+@media screen and (max-width: 1023px) {
+    .connect-with-us {
+        padding-bottom: 1.3vw; 
+    }    
+    .connect-with-us .text {
+        margin-top: 0vw;
+    }
+}

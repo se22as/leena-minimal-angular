@@ -6,37 +6,32 @@
 <!--
   HTML for the Header Component.
 -->
-
-<div id="header" class="header">
+<header id="header">
 
     <!-- Header Logo -->
-    <div class="header-column">
-        <a class="header-logo" [routerLink]="['/']" >
-            <img id="header-image" src={{logoUrl}} alt="Company Logo" />
-        </a>
-    </div> 
+    <a [routerLink]="['/']" >
+        <img id="header-image" src={{logoUrl}} alt="Company Logo" />
+    </a>
 
     <!-- Menu : Home | Contact Us -->
-    <div class="header-column">
-        <div class="header-nav navMenu">
-            <div class="menuButton" (click)="onDropDownMenuButtonClicked()">☰</div>
-            <ul class="menuItems" id="navListItems">
-                <li>
-                    <a id="header-link-home"
+    <nav>
+        <button id="nav-menu-button" (click)="onDropDownMenuButtonClicked()">☰</button>
+        <ul id="nav-menu-items">
+            <li>
+                <a id="header-link-home"
                        style="text-decoration: none;"
                        [ngClass]="(currentNavIndex===0 )?'active':''"
                        (click)="onMenuItemClicked(0)"
                        [routerLink]="['/']">Home</a>
-                </li>
-                <li>
-                    <a id="header-link-contactus"
+            </li>
+            <li>
+                <a id="header-link-contactus"
                        style="text-decoration: none;"
                        [ngClass]="(currentNavIndex===1 )?'active':''"
                        (click)="onMenuItemClicked(1)"
                        [routerLink]="['/contact']">Contact Us</a>
-                </li>
-            </ul>
-        </div>
-    </div>
+            </li>
+        </ul>        
+    </nav>
 
-</div>
+</header>

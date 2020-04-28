@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 @Component({
     selector: 'app-welcome',
     templateUrl: './welcome.component.html',
-    styleUrls : ['./welcome.component.css', '../../title-text.css']
+    styleUrls : ['../../title-text.css']
 })
 export class WelcomeComponent  {
 

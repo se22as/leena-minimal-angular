@@ -9,14 +9,14 @@
   */
 
 /**
- * Fetch the URLs for all images used in the application.
+ * Fetch the URLs for the specified named images.
  * 
  * @returns {Promise({object})} - A Promise containing the data to display on the top level page
  * @param {DeliveryClient} client - The delivery client which will execute the search
  * @param imageNames - Array of item names to get from the server
  * @returns map of image file name and its guid
  */
-export function fetchImageNameAndURLs(client, imageNames) { 
+export function fetchImageURLs(client, imageNames) { 
 
     // Build up the query predicate of the format :
     // 'name eq "name1" OR name eq "name2" OR name eq "name3"'

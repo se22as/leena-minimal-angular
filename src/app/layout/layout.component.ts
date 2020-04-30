@@ -5,7 +5,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import {getDeliveryClient} from '../../scripts/server-config-utils';
-import {fetchImageNameAndURLs} from '../../scripts/services';
+import {fetchImageURLs} from '../../scripts/services';
+import {HEADER_LOGO, FOOTER_LOGO} from '../../scripts/constants';
 
 /**
  * Component for main layout for any page in the application.
@@ -32,10 +33,10 @@ export class LayoutComponent implements OnInit {
         const deliveryClient = getDeliveryClient();
 
         // get the URLs for the images to display in this component
-        fetchImageNameAndURLs(deliveryClient, ['Logo.png', 'Powered_by_OCE.png'])
+        fetchImageURLs(deliveryClient, [HEADER_LOGO, FOOTER_LOGO])
         .then((urls) => {
-            this.headerLogoURL = urls['Logo.png'],
-            this.footerLogoURL = urls['Powered_by_OCE.png']
+            this.headerLogoURL = urls[HEADER_LOGO],
+            this.footerLogoURL = urls[FOOTER_LOGO]
             this.loading = false;
         })
         .catch(error => {

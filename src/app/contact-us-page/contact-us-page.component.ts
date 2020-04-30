@@ -23,7 +23,7 @@ export class ContactUsPageComponent implements OnInit {
     * Set the title in the constructor.
     */
    constructor(private titleService: Title) {
-       this.titleService.setTitle('Contact Us - Angular');
+       this.titleService.setTitle('Contact Us');
    }
 
     // variables whoses values are set in ngOnInit from data returned

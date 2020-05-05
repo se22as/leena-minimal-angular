@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser';
 
 import {getDeliveryClient} from '../../scripts/server-config-utils';
 import {fetchImageURLs} from '../../scripts/services';
-import {HOME_PAGE_IMAGE} from '../../scripts/constants';
+import {appConfig} from '../../config/data.js';
 
 /**
  * Component for the Home page.
@@ -40,9 +40,9 @@ export class HomePageComponent implements OnInit {
         const deliveryClient = getDeliveryClient();
 
         // get the URLs for the image to display in this component
-        fetchImageURLs(deliveryClient, [HOME_PAGE_IMAGE])
+        fetchImageURLs(deliveryClient, [appConfig.homePage])
         .then((urls) => {
-            this.imageURL = urls[HOME_PAGE_IMAGE]
+            this.imageURL = urls[appConfig.homePage]
         })
         .catch(error => {
             console.error(error);

@@ -8,7 +8,7 @@ import { Title } from '@angular/platform-browser';
 
 import {getDeliveryClient} from '../../scripts/server-config-utils';
 import {fetchImageURLs} from '../../scripts/services';
-import {CONTACT_US_IMAGE} from '../../scripts/constants';
+import {appConfig} from '../../config/data.js';
 
 /**
  * Component for the Contact Us page.
@@ -40,9 +40,9 @@ export class ContactUsPageComponent implements OnInit {
         const deliveryClient = getDeliveryClient();
 
         // get the URLs for the image to display in this component
-        fetchImageURLs(deliveryClient, [CONTACT_US_IMAGE])
+        fetchImageURLs(deliveryClient, [appConfig.contactUs])
         .then((urls) => {
-            this.imageURL = urls[CONTACT_US_IMAGE]
+            this.imageURL = urls[appConfig.contactUs]
         })
         .catch(error => {
             console.error(error);

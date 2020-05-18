@@ -11,19 +11,21 @@
 <section id="image-with-text-container" 
          class="content-image" 
          [ngStyle]="{ 'background-image': 'url(' + backgroundImage + ')'}">
-    <div>
-        <div class="adjust-margins">
-            <p id="image-with-text-title" class="title">
-                {{mainTitle}}
-            </p>
-            <p id="image-with-text-text" class={{textClassNames}}>
-                {{subText}}
-            </p>            
-            <a id="image-with-text-button" 
-               *ngIf="buttonText && buttonUrl" class="button" href={{buttonUrl}}>
-                {{buttonText}}
-            </a>
-        </div>
+  <div>
+    <div class="adjust-margins">
+      <p id="image-with-text-title" class="title">
+        {{mainTitle}}
+      </p>
+      <p id="image-with-text-text" class={{textClassNames}}>
+        {{subText}}
+      </p>            
+      <a id="image-with-text-button" 
+        *ngIf="buttonText && buttonUrl" 
+        class="button" 
+        href={{buttonUrl}}>
+        {{buttonText}}
+      </a>
     </div>
+  </div>
 </section>
 

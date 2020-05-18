@@ -4,44 +4,45 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import {getDeliveryClient} from '../../scripts/server-config-utils';
-import {fetchImageURLs} from '../../scripts/services';
-import {appConfig} from '../../config/data.js';
+import getDeliveryClient from '../../scripts/server-config-utils';
+import fetchImageURLs from '../../scripts/services';
+import appConfig from '../../config/data.js';
+import { ImageUrls } from '../../interfaces/interfaces';
 
 /**
  * Component for main layout for any page in the application.
  *
- * This component recieves all the data which it is to display.
+ * This component receives all the data which it is to display.
  */
 @Component({
-    selector: 'app-layout',
-    templateUrl: './layout.component.html'
+  selector: 'app-layout',
+  templateUrl: './layout.component.html'
 })
 export class LayoutComponent implements OnInit {
-    loading = true;
+  loading = true;
 
-    // variables whoses values are set in ngOnInit from data returned
-    // from the server and are referenced from the html file
-    headerLogoURL: string;
-    footerLogoURL: string;
+  // variables whoses values are set in ngOnInit from data returned
+  // from the server and are referenced from the html file
+  headerLogoURL: string;
+  footerLogoURL: string;
 
-    /*
-     * Get the data from the server and populate above variables
-     */
-    ngOnInit() {
-        // get the client to connect to CEC
-        const deliveryClient = getDeliveryClient();
+  /*
+  * Get the data from the server and populate above variables
+  */
+  ngOnInit() {
+    // get the client to connect to CEC
+    const deliveryClient = getDeliveryClient();
 
-        // get the URLs for the images to display in this component
-        fetchImageURLs(deliveryClient, [appConfig.logo, appConfig.footerLogo])
-        .then((urls) => {
-            this.headerLogoURL = urls[appConfig.logo],
-            this.footerLogoURL = urls[appConfig.footerLogo]
-            this.loading = false;
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    }
+    // get the URLs for the images to display in this component
+    fetchImageURLs(deliveryClient, [appConfig.logo, appConfig.footerLogo])
+      .then((urls: ImageUrls) => {
+        this.headerLogoURL = urls[appConfig.logo],
+        this.footerLogoURL = urls[appConfig.footerLogo]
+        this.loading = false;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
 
 }

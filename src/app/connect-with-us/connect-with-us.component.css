@@ -8,15 +8,15 @@
 
 /* adjust the padding bottom for the contact us text
    to make it smaller */
-   .connect-with-us {
-    padding-bottom: 1.8vw; 
+  .connect-with-us {
+  padding-bottom: 1.8vw; 
 }
 
 @media screen and (max-width: 1023px) {
-    .connect-with-us {
-        padding-bottom: 1.3vw; 
-    }    
-    .connect-with-us .text {
-        margin-top: 0vw;
-    }
+  .connect-with-us {
+    padding-bottom: 1.3vw; 
+  }    
+  .connect-with-us .text {
+    margin-top: 0vw;
+  }
 }

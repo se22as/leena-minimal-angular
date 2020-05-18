@@ -3,48 +3,47 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
- /**
-  * This file contains a number of utility methods used to obtain data 
+/**
+  * This file contains a number of utility methods used to obtain data
   * from the server using the ContentSDK JavaScript Library.
   */
 
 /**
  * Fetch the URLs for the specified named images.
- * 
+ *
  * @returns {Promise({object})} - A Promise containing the data to display on the top level page
  * @param {DeliveryClient} client - The delivery client which will execute the search
  * @param imageNames - Array of item names to get from the server
  * @returns map of image file name and its guid
  */
-export function fetchImageURLs(client, imageNames) { 
-
-    // Build up the query predicate of the format :
-    // 'name eq "name1" OR name eq "name2" OR name eq "name3"'
-    var predicate="";
-    for (var i = 0; i < imageNames.length; i++) {
-        if (i > 0){
-            predicate += " OR "
-        }
-        predicate += 'name eq "' + imageNames[i] + '"';
+export default function fetchImageURLs(client, imageNames) {
+  // Build up the query predicate of the format :
+  // 'name eq "name1" OR name eq "name2" OR name eq "name3"'
+  let predicate = '';
+  for (let i = 0; i < imageNames.length; i += 1) {
+    if (i > 0) {
+      predicate += ' OR ';
     }
-    var queryString = '(' + predicate + ')'
+    predicate += `name eq "${imageNames[i]}"`;
+  }
+  const queryString = `(${predicate})`;
 
-    // Search for the items and get the Rendition URL for each item
-    return client.queryItems({
-        "q": queryString,
-        "fields": "all"
-    }).then(function (result) {          
-        var imageURLs = {}
-                
-        var guids = result.items;        
-        for (var i = 0; i < guids.length; i++) {
-            let url = client.getRenditionURL({
-                "id" : guids[i].id
-            });
-            
-            imageURLs[guids[i].name] =  url;
-        }
+  // Search for the items and get the Rendition URL for each item
+  return client.queryItems({
+    q: queryString,
+    fields: 'all',
+  }).then((result) => {
+    const imageURLs = {};
 
-        return imageURLs;
-    });
+    const guids = result.items;
+    for (let i = 0; i < guids.length; i += 1) {
+      const url = client.getRenditionURL({
+        id: guids[i].id,
+      });
+
+      imageURLs[guids[i].name] = url;
+    }
+
+    return imageURLs;
+  });
 }

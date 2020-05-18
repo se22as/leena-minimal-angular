@@ -8,33 +8,38 @@ import { Component, Input, OnInit } from '@angular/core';
 /**
  * Component for the Image With Text component.
  *
- * This component recieves all the data which it is to display.
+ * This component receives all the data which it is to display.
+ * @param mainTitle the main text
+ * @param subText the sub text
+ * @param buttonText the text for the button,
+ *                   null if no button is to be displayed
+ * @param buttonUrl the URL for where the button should take the user when clicked
+ *                  null if no button is to be displayed
+ * @param backgroundImage the URL of the image to display in the background
  */
 @Component({
-    selector: 'app-image-with-text',
-    templateUrl: './image-with-text.component.html',
-    styleUrls: ['./image-with-text.component.css']
+  selector: 'app-image-with-text',
+  templateUrl: './image-with-text.component.html',
+  styleUrls: ['./image-with-text.component.css']
 })
 export class ImageWithTextComponent implements OnInit {
 
-    // variables passed into this component from another component
-    // (note: these could also be referenced in the HTML)
-    @Input() backgroundImage: string;
-    @Input() mainTitle: string;
-    @Input() subText: string;
-    @Input() buttonText: string;
-    @Input() buttonUrl: string;
+  // variables passed into this component from another component
+  // (note: these could also be referenced in the HTML)
+  @Input() backgroundImage: string;
+  @Input() mainTitle: string;
+  @Input() subText: string;
+  @Input() buttonText: string;
+  @Input() buttonUrl: string;
 
-    // determined styles
-    textClassNames: string;
-    imageBackgroundStyle: string;
+  // determined styles
+  textClassNames: string;
+  imageBackgroundStyle: string;
 
-    /*
-     * Get the data from the server and populate above variables
-     */
-    ngOnInit() {
-        this.textClassNames = this.buttonText ? 'text adjust-margins' : 'text';
-
-    }
-
+  /*
+  * Get the data from the server and populate above variables
+  */
+  ngOnInit() {
+    this.textClassNames = this.buttonText ? 'text adjust-margins' : 'text';
+  }
 }

@@ -11,10 +11,8 @@ import { Component } from '@angular/core';
  * This component is just HTML, there is no logic.
  */
 @Component({
-    selector: 'app-welcome',
-    templateUrl: './welcome.component.html',
-    styleUrls : ['../../styles/title-text.css']
+  selector: 'app-welcome',
+  templateUrl: './welcome.component.html',
+  styleUrls : ['../../styles/title-text.css']
 })
-export class WelcomeComponent  {
-
-}
+export class WelcomeComponent  {}

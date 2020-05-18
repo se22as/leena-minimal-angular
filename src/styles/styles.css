@@ -1,8 +1,7 @@
-
 /**
  * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
- * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
+
 
 /**
  * Styles for the whole application.
@@ -10,13 +9,14 @@
  * Styles for each component are with the components.
  */
 
-body {
-    font-family: -apple-system, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    margin: 0;
-    max-width: 1700px;   
+ body {
+  font-family: -apple-system, "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  margin: 0;
+  max-width: 1700px;   
 }
 
 h1 {
-    font-size: 40px; 
-    font-weight: normal;
+  font-size: 40px; 
+  font-weight: normal;
 }
+

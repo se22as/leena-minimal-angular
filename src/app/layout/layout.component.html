@@ -9,9 +9,9 @@
   This component is just HTML, there is no logic.
 -->
 <div>
-    <app-header *ngIf="!loading" logoUrl={{headerLogoURL}}></app-header>    
-    
-    <ng-content></ng-content>
-    
-    <app-footer *ngIf="!loading" logoUrl={{footerLogoURL}}></app-footer>
+  <app-header *ngIf="!loading" logoUrl={{headerLogoURL}}></app-header>    
+  
+  <ng-content></ng-content>
+  
+  <app-footer *ngIf="!loading" logoUrl={{footerLogoURL}}></app-footer>
 </div>

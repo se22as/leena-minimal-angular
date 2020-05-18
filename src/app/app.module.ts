@@ -19,50 +19,48 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { LayoutComponent } from './layout/layout.component';
 
 const appRoutes: Routes = [
-    // home page
-    {
-        path: 'home',
-        component: HomePageComponent,
-    },
-    // Contact us page
-    {
-        path: 'contact',
-        component: ContactUsPageComponent,
-    },
-    // no path specified, go to home
-    {
-        path: '',  redirectTo: '/home', pathMatch: 'full'
-    }
+  // home page
+  {
+    path: 'home',
+    component: HomePageComponent,
+  },
+  // Contact us page
+  {
+    path: 'contact',
+    component: ContactUsPageComponent,
+  },
+  // no path specified, go to home
+  {
+    path: '',  redirectTo: '/home', pathMatch: 'full'
+  }
 ];
 
-
 @NgModule({
-    declarations: [
-        AppComponent,
-        ConnectWithUsComponent,
-        ContactUsPageComponent,
-        FooterComponent,
-        HeaderComponent,
-        HomePageComponent,
-        ImageWithTextComponent,
-        LocationsComponent,
-        WelcomeComponent,
-        LayoutComponent
+  declarations: [
+    AppComponent,
+    ConnectWithUsComponent,
+    ContactUsPageComponent,
+    FooterComponent,
+    HeaderComponent,
+    HomePageComponent,
+    ImageWithTextComponent,
+    LocationsComponent,
+    WelcomeComponent,
+    LayoutComponent
+  ],
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+      )
     ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot(
-            appRoutes,
-            { enableTracing: true } // <-- debugging purposes only
-        )
-    ],
-    providers: [
-        Title
-    ],
-    bootstrap: [
-        AppComponent
-    ]
+  providers: [
+    Title
+  ],
+  bootstrap: [
+    AppComponent
+  ]
 })
-
 
 export class AppModule { }

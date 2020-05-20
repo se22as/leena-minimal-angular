@@ -1,5 +1,8 @@
 {
   "name": "oce-minimal-angular",
+  "description": "",
+  "author": "Oracle America, Inc.",
+  "license": "UPL-1.0",
   "version": "20.3.1",
   "scripts": {
     "ng": "ng",
@@ -9,7 +12,6 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^9.1.0",
     "@angular/common": "^9.1.0",

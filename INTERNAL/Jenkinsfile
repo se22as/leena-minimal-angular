@@ -14,9 +14,18 @@ def doBuild() {
     unstash name: "workspace"
     
     // Make SSH creds available in case npm install needs to acccess internal git repo
+    sshagent (credentials: [ Common.GIT_SSH_CREDENTIALS_ID ]) {
     sh """
-        echo "[doBuild: "`pwd`"]"
-        npm install
+      echo "[doBuild: "`pwd`"]"
+      npm install
+      mkdir -p INTERNAL/reports
+      npm run lint -- --format checkstyle -o INTERNAL/reports/tslint.report || true
+    """
+    recordIssues(
+        tool: checkStyle(pattern: 'INTERNAL/reports/tslint.report')
+    )
+
+    sh """
         ./node_modules/.bin/ng build --prod --base-href /tutorials/oce-minimal-angular/
         ./INTERNAL/integration/scripts/dockerbuild.sh ${env.JOB_BASE_NAME} ${env.CCS_OPC_VERSION} ${env.BUILD_NUMBER}
         # Some build validation here?

@@ -9,7 +9,7 @@ import com.oraclecorp.cec.mobile.*
 // -----------------------------------------------------------------------------
 
 def doBuild() {
-	println "*** in oce-minimal-angular/doBuild()"
+	println "*** in oce-angular-minimal-sample/doBuild()"
 
     unstash name: "workspace"
     
@@ -26,7 +26,7 @@ def doBuild() {
     )
 
     sh """
-        ./node_modules/.bin/ng build --prod --base-href /tutorials/oce-minimal-angular/
+        ./node_modules/.bin/ng build --prod --base-href /tutorials/oce-angular-minimal-sample/
         ./INTERNAL/integration/scripts/dockerbuild.sh ${env.JOB_BASE_NAME} ${env.CCS_OPC_VERSION} ${env.BUILD_NUMBER}
         # Some build validation here?
         ./INTERNAL/integration/scripts/dockerpush.sh ${env.JOB_BASE_NAME} ${env.CCS_OPC_VERSION} ${env.BUILD_NUMBER}

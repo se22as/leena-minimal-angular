@@ -2,7 +2,7 @@
 # For consumption by oscs_approvals.py
 # File format: https://github.com/toml-lang/toml/blob/master/README.md
 
-name = "oce-minimal-angular"
+name = "oce-angular-minimal-sample"
 
 baids = [
 ]

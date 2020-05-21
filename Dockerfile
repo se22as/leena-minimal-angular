@@ -32,9 +32,9 @@ RUN npm config set registry https://artifacthub-tip.oraclecorp.com/api/npm/npmjs
 
 # Bundle the build directory (assumes `ng build` has been run on the host)
 
-# The end-user URL will be like: http://server:8080/tutorials/oce-angular-minimal-sample
-# So the web site needs to be in a tutorials/oce-angular-minimal-sample subdirectory
-COPY dist/oce-angular-minimal-sample dist/tutorials/oce-angular-minimal-sample/
+# The end-user URL will be like: http://server:8080/samples/oce-angular-minimal-sample
+# So the web site needs to be in a samples/oce-angular-minimal-sample subdirectory
+COPY dist/oce-angular-minimal-sample dist/samples/oce-angular-minimal-sample/
 
 # Uses port 8080 of the container -- this is remapped to any host port when running
 EXPOSE 8080

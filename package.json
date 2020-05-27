@@ -24,7 +24,7 @@
     "rxjs": "^6.5.5",
     "tslib": "^1.11.1",
     "zone.js": "^0.10.3",
-    "contentsdk": "https://samples-oce0001.cec.ocp.oraclecloud.com/_sitesclouddelivery/renderer/app/sdk/npm/contentsdk-1.1.0.tgz"
+    "contentsdk": "https://samples.mycontentdemo.com/_sitesclouddelivery/renderer/app/sdk/npm/contentsdk-1.1.0.tgz"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.0",

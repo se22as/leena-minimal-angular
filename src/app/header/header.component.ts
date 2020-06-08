@@ -38,15 +38,15 @@ export class HeaderComponent {
    * button is clicked and update the button styling.
    */
   onDropDownMenuButtonClicked() {
-    const navMenuItems = document.getElementById('nav-menu-items');
-    const button = document.getElementById('nav-menu-button');
+    const dropDownMenu = document.getElementById('nav-menu-items');
+    const menuButton = document.getElementById('nav-menu-button');
 
-    if (navMenuItems.className === '') {
-      navMenuItems.className = 'displayed';
-      button.className = 'active';
+    if (dropDownMenu.className === '') {
+      dropDownMenu.className = 'displayed';
+      menuButton.className = 'active';
     } else {
-      navMenuItems.className = '';
-      button.className = '';
+      dropDownMenu.className = '';
+      menuButton.className = '';
     }
   }
 
@@ -58,10 +58,10 @@ export class HeaderComponent {
     this.currentNavIndex = index;
 
     // Close the menu and update the button styling
-    const x = document.getElementById('nav-menu-items');
-    const button = document.getElementById('nav-menu-button');
-    x.className = 'menuItems';
-    button.className = '';
+    const dropDownMenu = document.getElementById('nav-menu-items');
+    const menuButton = document.getElementById('nav-menu-button');
+    dropDownMenu.className = '';
+    menuButton.className = '';
   }
 
 }

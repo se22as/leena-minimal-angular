@@ -20,7 +20,7 @@ def doBuild(Map config) {
         sh """
             echo "[doBuild: "`pwd`"]"
             npm install
-            npm run lint -- --format checkstyle -o INTERNAL/reports/tslint.report
+            npm run --silent lint -- --format checkstyle > INTERNAL/reports/tslint.report
         """
     }
 

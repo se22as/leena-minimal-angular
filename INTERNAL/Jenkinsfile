@@ -8,19 +8,24 @@ import com.oraclecorp.cec.mobile.*
 // Custom steps for this branch
 // -----------------------------------------------------------------------------
 
-def doBuild() {
-	println "*** in oce-angular-minimal-sample/doBuild()"
+def doBuild(Map config) {
+	  println "*** in oce-angular-minimal-sample/doBuild()"
 
     unstash name: "workspace"
 
+    // Lint-check the source (configurable severity)
+    def statusOnError = config['lintIssuesBuildStatus'] ?: 'FAILURE'
+
+    catchError(buildResult: statusOnError, stageResult: statusOnError) {
+        sh """
+            echo "[doBuild: "`pwd`"]"
+            npm install
+            npm run lint -- --format checkstyle -o INTERNAL/reports/tslint.report
+        """
+    }
+
     // Make SSH creds available in case npm install needs to acccess internal git repo
     sshagent (credentials: [ Common.GIT_SSH_CREDENTIALS_ID ]) {
-        sh """
-          echo "[doBuild: "`pwd`"]"
-          npm install
-          npm run lint -- --format checkstyle -o INTERNAL/reports/tslint.report || true
-        """
-
         sh """
             ./node_modules/.bin/ng build --prod --base-href /samples/oce-angular-minimal-sample/
             ./INTERNAL/integration/scripts/dockerbuild.sh ${env.JOB_BASE_NAME} ${env.CCS_OPC_VERSION} ${env.BUILD_NUMBER}
@@ -37,7 +42,17 @@ def doBuild() {
 // Map specifying a closure to be used for each build step
 // If a step is not specified a defailt will be used
 def config = [
-	buildStep: this.&doBuild
+	buildStep: this.&doBuild,
+
+	// Error severity configuration: Issues will be reported in the Jenkins UI in all cases.
+    // - 'SUCCESS': ignore issues; the build will succeed
+    // - 'UNSTABLE': mark the build as unstable, but don't fail it
+    // - 'FAILURE': fail the build. This should be the "production" default.
+
+	lintIssuesBuildStatus: 'FAILURE',
+    blacklistIssuesBuildStatus: 'UNSTABLE',
+    thirdPartyIssuesBuildStatus: 'UNSTABLE'
 ]
 
 devxPipeline(config)
+

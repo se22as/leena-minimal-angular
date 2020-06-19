@@ -4,48 +4,62 @@
   "author": "Oracle America, Inc.",
   "license": "UPL-1.0",
   "version": "20.3.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oracle/oce-angular-minimal-sample.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
   "dependencies": {
-    "@angular/animations": "^9.1.0",
-    "@angular/common": "^9.1.0",
-    "@angular/compiler": "^9.1.0",
-    "@angular/core": "^9.1.0",
-    "@angular/forms": "^9.1.0",
-    "@angular/platform-browser": "^9.1.0",
-    "@angular/platform-browser-dynamic": "^9.1.0",
-    "@angular/router": "^9.1.0",
     "rxjs": "^6.5.5",
-    "tslib": "^1.11.1",
-    "zone.js": "^0.10.3",
-    "contentsdk": "https://samples.mycontentdemo.com/_sitesclouddelivery/renderer/app/sdk/npm/contentsdk-1.1.0.tgz"
+    "tslib": "^1.13.0",
+    "@angular/animations": "^9.1.11",
+    "@angular/common": "^9.1.11",
+    "@angular/compiler": "^9.1.11",
+    "@angular/compiler-cli": "^9.1.11",
+    "@angular/core": "^9.1.11",
+    "@angular/platform-browser": "^9.1.11",
+    "@angular/platform-browser-dynamic": "^9.1.11",
+    "@angular/router": "^9.1.11",
+    "contentsdk": "https://samples.mycontentdemo.com/_sitesclouddelivery/renderer/app/sdk/npm/contentsdk-1.1.0.tgz",
+    "zone.js": "^0.10.3"
   },
+  "XOracleLicensedUmbrellaTechnologies": [
+    {
+      "name": "angular",
+      "version": "9.1.11",
+      "url": "https://github.com/angular/angular.git",
+      "packageIncludes": [
+        "packages/*"
+      ],
+      "packageExcludes": [
+        "packages/http",
+        "packages/bazel"
+      ],
+      "usedPackages": [
+        "@angular-cli",
+        "@angular/core",
+        "@angular/common",
+        "@angular/compiler",
+        "@angular/compiler-cli",
+        "@angular/animations",
+        "@angular/platform-browser",
+        "@angular/platform-browser-dynamic",
+        "@angular/router",
+        "zone.js"
+      ]
+    }
+  ],
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.901.0",
-    "@angular/cli": "~9.1.0",
-    "@angular/compiler-cli": "~9.1.0",
-    "@angular/language-service": "~9.1.0",
-    "@types/jasmine": "~3.5.10",
-    "@types/jasminewd2": "~2.0.8",
-    "@types/node": "~13.11.0",
-    "codelyzer": "^5.2.2",
-    "jasmine-core": "~3.5.0",
-    "jasmine-spec-reporter": "~5.0.1",
-    "karma": "~4.4.1",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage-istanbul-reporter": "~2.1.1",
-    "karma-jasmine": "~3.1.1",
-    "karma-jasmine-html-reporter": "^1.5.3",
-    "protractor": "~5.4.3",
-    "ts-node": "~8.8.2",
-    "tslint": "~6.1.1",
-    "typescript": "~3.8.3"
+    "@angular-devkit/build-angular": "^0.901.9",
+    "@angular/cli": "^9.1.9",
+    "codelyzer": "^5.1.2",
+    "tslint": "~6.1.0"
   },
   "browser": {
     "http": false,

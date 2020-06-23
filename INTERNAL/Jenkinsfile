@@ -1,58 +1,171 @@
-#!/usr/bin/env groovy
+// File: Jenkinsfile
 
-// Shared libraries
-@Library("cec-mobile-libraries") _
-import com.oraclecorp.cec.mobile.*
+import groovy.transform.Field
 
-// -----------------------------------------------------------------------------
-// Custom steps for this branch
-// -----------------------------------------------------------------------------
+@Field def commonBuild
+@Field def platformBuild
 
-def doBuild(Map config) {
-	  println "*** in oce-angular-minimal-sample/doBuild()"
+// ----------------------------------------------------------------------------
+// Pipeline step delegates
 
-    unstash name: "workspace"
+// Try to put as little logic in this file as possible. Anything that
+// can be shared by other jobs should go in a shared script file.
+// ----------------------------------------------------------------------------
 
-    // Lint-check the source (configurable severity)
-    def statusOnError = config['lintIssuesBuildStatus'] ?: 'FAILURE'
-
-    catchError(buildResult: statusOnError, stageResult: statusOnError) {
-        sh """
-            echo "[doBuild: "`pwd`"]"
-            npm install
-            npm run --silent lint -- --format checkstyle > INTERNAL/reports/tslint.report
-        """
-    }
-
-    // Make SSH creds available in case npm install needs to acccess internal git repo
-    sshagent (credentials: [ Common.GIT_SSH_CREDENTIALS_ID ]) {
-        sh """
-            ./node_modules/.bin/ng build --prod --base-href /samples/oce-angular-minimal-sample/
-            ./INTERNAL/integration/scripts/dockerbuild.sh ${env.JOB_BASE_NAME} ${env.CCS_OPC_VERSION} ${env.BUILD_NUMBER}
-            # Some build validation here?
-            ./INTERNAL/integration/scripts/dockerpush.sh ${env.JOB_BASE_NAME} ${env.CCS_OPC_VERSION} ${env.BUILD_NUMBER}
-        """
-    }
+def doPrepare() {
+    commonBuild.doPrepare()
+    platformBuild.doPrepare()
 }
 
-// -----------------------------------------------------------------------------
-// Run the pipeline
-// -----------------------------------------------------------------------------
+def doBuild() {
+    commonBuild.doBuild()
 
-// Map specifying a closure to be used for each build step
-// If a step is not specified a defailt will be used
-def config = [
-	buildStep: this.&doBuild,
+    sshagent (credentials: [ GIT_SSH_CREDENTIALS_ID ]) {
+        sh """\
+            npm install
+            ./node_modules/.bin/ng build --prod --base-href /samples/oce-angular-minimal-sample/
+        """
+    }
 
-	// Error severity configuration: Issues will be reported in the Jenkins UI in all cases.
-    // - 'SUCCESS': ignore issues; the build will succeed
-    // - 'UNSTABLE': mark the build as unstable, but don't fail it
-    // - 'FAILURE': fail the build. This should be the "production" default.
+    commonBuild.makeDockerImage(true)
+}
 
-	lintIssuesBuildStatus: 'FAILURE',
-    blacklistIssuesBuildStatus: 'UNSTABLE',
-    thirdPartyIssuesBuildStatus: 'UNSTABLE'
-]
+def doLint() {
+    commonBuild.doLint()
+    // tslint needs npm install to have been done
+    platformBuild.doLint("tslint")
+}
 
-devxPipeline(config)
+def doTest() {
+    commonBuild.doTest()
+}
 
+def doCompliance() {
+    // More complex interleaving of common and job-specific code
+    commonBuild.doComplianceSetup()
+    platformBuild.doCompliance()
+    commonBuild.doComplianceReport()
+}
+
+def doGitHub() {
+    commonBuild.doGitHub()
+}
+
+def doPostAlways() {
+    // Caution: this is called even if Bootstrap fails, in which case the build scripts can be null
+    commonBuild?.doPostAlways()
+}
+
+// ----------------------------------------------------------------------------
+// Boilerplate section:
+//
+// Almost everything below here should be the same for all jobs. Don't add any
+// job-specific logic below here but put in the the delegate methods above.
+//
+// The only exception is the environment directive which is job-specific.
+// ----------------------------------------------------------------------------
+
+// Code that must be run in order to call methods in shared processing script(s)
+def doBootstrap() {
+
+    // Assuming Jenkins job has cleaned the workspace when it started
+    sh label: "Cloning integration branch", script: """\
+        env | sort --ignore-case
+        git lfs install
+        git clone --depth 1 --branch ${SCRIPTS_BRANCH} ${SCRIPTS_REPO} ${INTEGRATION_DIR}
+    """
+
+    stash includes: "*/**", name: "workspace"
+
+    commonBuild = load "${INTEGRATION_DIR}/jenkins/common.groovy"
+    platformBuild = commonBuild.loadPlatformScript()
+}
+
+
+pipeline {
+    agent {
+        label 'oci'
+    }
+    environment {
+        // Required for bootstrap phase
+        SCRIPTS_REPO = "git@git.cec.oraclecorp.com:oce-devx-headless/tutorials.git"
+        SCRIPTS_BRANCH = "integration"
+        INTEGRATION_DIR = "INTERNAL/integration"
+        GIT_SSH_CREDENTIALS_ID = "021f7ef4-48b2-4831-a224-7234514c6a5f"
+
+        // Decide severity of issues for this job (SUCCESS, UNSTABLE, FAILURE)
+        LINT_ISSUES_BUILD_STATUS = "FAILURE"
+        BLACKLIST_ISSUES_BUILD_STATUS = "UNSTABLE"
+        THIRDPARTY_ISSUES_BUILD_STATUS = "UNSTABLE"
+
+        EMAIL_ENABLED = "YES"
+    }
+    stages {
+        stage("Bootstrap") {
+            steps {
+                // No startStage() call -- commonBuild is not initialised yet
+                doBootstrap()
+            }
+        }
+        stage("Prepare") {
+            steps {
+                script {
+                    commonBuild.startStage()
+                    doPrepare()
+                }
+            }
+        }
+        stage("Build") {
+            steps {
+                script {
+                    commonBuild.startStage()
+                    doBuild()
+                }
+            }
+        }
+        stage("Lint") {
+            steps {
+                script {
+                    commonBuild.startStage()
+                    doLint()
+                }
+            }
+        }
+        stage("Test") {
+            steps {
+                script {
+                    commonBuild.startStage()
+                    doTest()
+                }
+            }
+        }
+        stage("Compliance") {
+            steps {
+                script {
+                    commonBuild.startStage()
+                    doCompliance()
+                }
+            }
+        }
+        stage("Distributions") {
+            stages {
+                stage("GitHub") {
+                    steps {
+                        script {
+                            commonBuild.startStage()
+                            doGitHub()
+
+                            // Because this is the last stage. Move this if more are added.
+                            commonBuild.finishedLastStage()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            doPostAlways()
+        }
+    }
+}

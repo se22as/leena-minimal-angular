@@ -18,7 +18,6 @@ def doPrepare() {
 }
 
 def doLint() {
-    // npm install has been done by platformBuild.doPrepare()
     commonBuild.doLint()
     platformBuild.doLint("tslint")
 }
@@ -26,9 +25,11 @@ def doLint() {
 def doBuild() {
     commonBuild.doBuild()
 
-        sh """\
-            ./node_modules/.bin/ng build --prod --base-href /samples/oce-angular-minimal-sample/
-        """
+    // npm install has been done by platformBuild.doPrepare()
+
+    sh """\
+        ./node_modules/.bin/ng build --prod --base-href /samples/oce-angular-minimal-sample/
+    """
 
     commonBuild.makeDockerImage(true)
 }

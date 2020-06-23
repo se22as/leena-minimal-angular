@@ -16,8 +16,6 @@
     "lint": "ng lint"
   },
   "dependencies": {
-    "rxjs": "^6.5.5",
-    "tslib": "^1.13.0",
     "@angular/animations": "^9.1.11",
     "@angular/common": "^9.1.11",
     "@angular/compiler": "^9.1.11",
@@ -27,6 +25,9 @@
     "@angular/platform-browser-dynamic": "^9.1.11",
     "@angular/router": "^9.1.11",
     "contentsdk": "https://samples.mycontentdemo.com/_sitesclouddelivery/renderer/app/sdk/npm/contentsdk-1.1.0.tgz",
+    "rxjs": "^6.5.5",
+    "tslib": "^1.13.0",
+    "typescript": "^3.8.3",
     "zone.js": "^0.10.3"
   },
   "XOracleLicensedUmbrellaTechnologies": [

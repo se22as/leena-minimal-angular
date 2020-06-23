@@ -17,23 +17,20 @@ def doPrepare() {
     platformBuild.doPrepare()
 }
 
+def doLint() {
+    // npm install has been done by platformBuild.doPrepare()
+    commonBuild.doLint()
+    platformBuild.doLint("tslint")
+}
+
 def doBuild() {
     commonBuild.doBuild()
 
-    sshagent (credentials: [ GIT_SSH_CREDENTIALS_ID ]) {
         sh """\
-            npm install
             ./node_modules/.bin/ng build --prod --base-href /samples/oce-angular-minimal-sample/
         """
-    }
 
     commonBuild.makeDockerImage(true)
-}
-
-def doLint() {
-    commonBuild.doLint()
-    // tslint needs npm install to have been done
-    platformBuild.doLint("tslint")
 }
 
 def doTest() {
@@ -115,19 +112,19 @@ pipeline {
                 }
             }
         }
-        stage("Build") {
-            steps {
-                script {
-                    commonBuild.startStage()
-                    doBuild()
-                }
-            }
-        }
         stage("Lint") {
             steps {
                 script {
                     commonBuild.startStage()
                     doLint()
+                }
+            }
+        }
+        stage("Build") {
+            steps {
+                script {
+                    commonBuild.startStage()
+                    doBuild()
                 }
             }
         }

@@ -21,8 +21,8 @@ WORKDIR /usr/src/devx
 ARG NG_CLI_ANALYTICS=ci
 
 # Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-COPY package*.json ./
+# Not copying package-lock.json; it causes mysterious checksum failures in npm install
+COPY package.json ./
 
 # Build using Oracle's internal npm proxy
 RUN npm config set registry https://artifacthub-tip.oraclecorp.com/api/npm/npmjs-remote ; \

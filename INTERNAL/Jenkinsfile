@@ -12,11 +12,6 @@ import groovy.transform.Field
 // can be shared by other jobs should go in a shared script file.
 // ----------------------------------------------------------------------------
 
-def doPrepare() {
-    commonBuild.doPrepare()
-    platformBuild.doPrepare()
-}
-
 def doLint() {
     commonBuild.doLint()
     platformBuild.doLint("tslint")
@@ -32,26 +27,6 @@ def doBuild() {
     """
 
     commonBuild.makeDockerImage(true)
-}
-
-def doTest() {
-    commonBuild.doTest()
-}
-
-def doCompliance() {
-    // More complex interleaving of common and job-specific code
-    commonBuild.doComplianceSetup()
-    platformBuild.doCompliance()
-    commonBuild.doComplianceReport()
-}
-
-def doGitHub() {
-    commonBuild.doGitHub()
-}
-
-def doPostAlways() {
-    // Caution: this is called even if Bootstrap fails, in which case the build scripts can be null
-    commonBuild?.doPostAlways()
 }
 
 // ----------------------------------------------------------------------------

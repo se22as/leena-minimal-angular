@@ -27,13 +27,12 @@
     "contentsdk": "https://samples.mycontentdemo.com/_sitesclouddelivery/renderer/app/sdk/npm/contentsdk-1.1.0.tgz",
     "rxjs": "^6.5.5",
     "tslib": "^1.13.0",
-    "typescript": "^3.8.3",
     "zone.js": "^0.10.3"
   },
-  "XOracleLicensedUmbrellaTechnologies": [
+  "XOracleLicensedTechnologies": [
     {
       "name": "angular",
-      "version": "9.1.11",
+      "branch": "9.1.11",
       "url": "https://github.com/angular/angular.git",
       "packageIncludes": [
         "packages/*"
@@ -60,7 +59,8 @@
     "@angular-devkit/build-angular": "^0.901.9",
     "@angular/cli": "^9.1.9",
     "codelyzer": "^5.1.2",
-    "tslint": "~6.1.0"
+    "tslint": "~6.1.0",
+    "typescript": "^3.8.3"
   },
   "browser": {
     "http": false,

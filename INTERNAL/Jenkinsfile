@@ -23,7 +23,7 @@ def doBuild() {
     // npm install has been done by platformBuild.doPrepare()
 
     sh """\
-        ./node_modules/.bin/ng build --prod --base-href /samples/oce-angular-minimal-sample/
+        ./node_modules/.bin/ng build --prod --base-href /samples/$BRANCH_NAME/
     """
 
     commonBuild.makeDockerImage(true)
@@ -34,12 +34,13 @@ def doBuild() {
 //
 // Almost everything below here should be the same for all jobs. Don't add any
 // job-specific logic below here but put in the the delegate methods above.
-//
-// The only exception is the environment directive which is job-specific.
 // ----------------------------------------------------------------------------
 
 // Code that must be run in order to call methods in shared processing script(s)
 def doBootstrap() {
+
+    SCRIPTS_REPO = "git@git.cec.oraclecorp.com:oce-devx-headless/tutorials.git"
+    SCRIPTS_BRANCH = "integration"
 
     // Assuming Jenkins job has cleaned the workspace when it started
     sh label: "Cloning integration branch", script: """\
@@ -60,17 +61,17 @@ pipeline {
         label 'oci'
     }
     environment {
-        // Required for bootstrap phase
-        SCRIPTS_REPO = "git@git.cec.oraclecorp.com:oce-devx-headless/tutorials.git"
-        SCRIPTS_BRANCH = "integration"
-        INTEGRATION_DIR = "INTERNAL/integration"
         GIT_SSH_CREDENTIALS_ID = "021f7ef4-48b2-4831-a224-7234514c6a5f"
+
+        // After boostrap, the integration branch is available at this path
+        INTEGRATION_DIR = "INTERNAL/integration"
 
         // Decide severity of issues for this job (SUCCESS, UNSTABLE, FAILURE)
         LINT_ISSUES_BUILD_STATUS = "FAILURE"
         BLACKLIST_ISSUES_BUILD_STATUS = "UNSTABLE"
         THIRDPARTY_ISSUES_BUILD_STATUS = "UNSTABLE"
 
+        // Whether to send job-completion notifications (maybe disable while testing scripts)
         EMAIL_ENABLED = "YES"
     }
     stages {
@@ -109,7 +110,8 @@ pipeline {
             steps {
                 script {
                     commonBuild.startStage()
-                    doTest()
+                    commonBuild.doTest()
+                    platformBuild.doTest()
                 }
             }
         }
@@ -117,7 +119,10 @@ pipeline {
             steps {
                 script {
                     commonBuild.startStage()
-                    doCompliance()
+                    // More complex interleaving of common and job-specific code
+                    commonBuild.doComplianceSetup()
+                    platformBuild.doCompliance()
+                    commonBuild.doComplianceReport()
                 }
             }
         }
@@ -127,7 +132,8 @@ pipeline {
                     steps {
                         script {
                             commonBuild.startStage()
-                            doGitHub()
+                            commonBuild.doGitHub()
+                            platformBuild.doGitHub()
 
                             // Because this is the last stage. Move this if more are added.
                             commonBuild.finishedLastStage()
@@ -139,7 +145,12 @@ pipeline {
     }
     post {
         always {
-            doPostAlways()
+            script {
+                // Caution: this is called even if Bootstrap fails, in which case the build scripts can be null
+                commonBuild?.doPostAlways()
+                platformBuild?.doPostAlways()
+            }
         }
-    }
+    }  
 }
+

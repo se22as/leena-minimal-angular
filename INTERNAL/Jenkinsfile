@@ -84,7 +84,8 @@ pipeline {
             steps {
                 script {
                     commonBuild.startStage()
-                    doPrepare()
+                    commonBuild.doPrepare()
+                    platformBuild.doPrepare()
                 }
             }
         }

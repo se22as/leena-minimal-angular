@@ -1,9 +1,9 @@
 {
   "name": "oce-angular-minimal-sample",
+  "version": "20.3.1",
   "description": "",
   "author": "Oracle America, Inc.",
   "license": "UPL-1.0",
-  "version": "20.3.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/oracle/oce-angular-minimal-sample.git"
@@ -59,8 +59,7 @@
     "@angular-devkit/build-angular": "^0.901.9",
     "@angular/cli": "^9.1.9",
     "codelyzer": "^5.1.2",
-    "tslint": "~6.1.0",
-    "typescript": "^3.8.3"
+    "tslint": "^6.1.0"
   },
   "browser": {
     "http": false,

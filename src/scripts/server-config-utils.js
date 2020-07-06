@@ -3,7 +3,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
-import { createDeliveryClient } from 'contentsdk/content.min'; // @starter import
+import { createDeliveryClient } from 'contentsdk/content.min';
 import data from '../config/oce.json';
 
 /**
@@ -22,7 +22,7 @@ export default function getDeliveryClient() {
 
   // Obtain the delivery client from the Content Delivery SDK
   // using the specified configuration information
-  const deliveryClient = createDeliveryClient(serverconfig);// @starter const deliveryClient =
+  const deliveryClient = createDeliveryClient(serverconfig);
 
   return deliveryClient;
 }

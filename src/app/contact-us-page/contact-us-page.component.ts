@@ -43,7 +43,7 @@ export class ContactUsPageComponent implements OnInit {
     // get the URLs for the image to display in this component
     fetchImageURLs(deliveryClient, [appConfig.contactUs])
     .then((urls: ImageUrls) => {
-      this.imageURL = urls[appConfig.contactUs]
+      this.imageURL = urls[appConfig.contactUs];
     })
     .catch(error => {
       console.error(error);

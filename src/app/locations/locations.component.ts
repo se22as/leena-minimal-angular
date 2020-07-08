@@ -13,6 +13,6 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-locations',
   templateUrl: './locations.component.html',
-  styleUrls: ['../../styles/title-text.css','./locations.component.css']
+  styleUrls: ['../../styles/title-text.css', './locations.component.css']
 })
 export class LocationsComponent {}

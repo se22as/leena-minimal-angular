@@ -36,8 +36,8 @@ export class LayoutComponent implements OnInit {
     // get the URLs for the images to display in this component
     fetchImageURLs(deliveryClient, [appConfig.logo, appConfig.footerLogo])
       .then((urls: ImageUrls) => {
-        this.headerLogoURL = urls[appConfig.logo],
-        this.footerLogoURL = urls[appConfig.footerLogo]
+        this.headerLogoURL = urls[appConfig.logo];
+        this.footerLogoURL = urls[appConfig.footerLogo];
         this.loading = false;
       })
       .catch(error => {

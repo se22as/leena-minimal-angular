@@ -43,7 +43,7 @@ export class HomePageComponent implements OnInit {
     // get the URLs for the image to display in this component
     fetchImageURLs(deliveryClient, [appConfig.homePage])
       .then((urls: ImageUrls) => {
-        this.imageURL = urls[appConfig.homePage]
+        this.imageURL = urls[appConfig.homePage];
       })
       .catch(error => {
         console.error(error);

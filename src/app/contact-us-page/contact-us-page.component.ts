@@ -11,6 +11,8 @@ import appConfig from '../../config/data.js';
 
 /**
  * Component for the Contact Us page.
+ *
+ * The ContactUsPageDataResolver gets all the data before this component is created.
  */
 @Component({
   selector: 'app-contact-us',

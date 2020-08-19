@@ -11,6 +11,8 @@ import appConfig from '../../config/data.js';
 
 /**
  * Component for the Home page.
+ *
+ * The HomePageDataResolver gets all the data before this component is created.
  */
 @Component({
   selector: 'app-home',

@@ -54,11 +54,9 @@ const appRoutes: Routes = [
     LayoutComponent
   ],
   imports: [
-    BrowserModule,
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-      )
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    RouterModule.forRoot(appRoutes, { enableTracing: true, initialNavigation: 'enabled' } // <-- debugging purposes only
+)
     ],
   providers: [
     Title,

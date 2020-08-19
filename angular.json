@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/oce-angular-minimal-sample",
+            "outputPath": "dist/oce-angular-minimal-sample/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -123,6 +123,53 @@
             "production": {
               "devServerTarget": "oce-angular-minimal-sample:serve:production"
             }
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/oce-angular-minimal-sample/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "oce-angular-minimal-sample:build",
+            "serverTarget": "oce-angular-minimal-sample:server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "oce-angular-minimal-sample:build:production",
+              "serverTarget": "oce-angular-minimal-sample:server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "oce-angular-minimal-sample:build:production",
+            "serverTarget": "oce-angular-minimal-sample:server:production",
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {}
           }
         }
       }

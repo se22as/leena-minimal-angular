@@ -4,10 +4,9 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import getDeliveryClient from '../../scripts/server-config-utils';
-import fetchImageURLs from '../../scripts/services';
+import { ActivatedRoute } from '@angular/router';
+
 import appConfig from '../../config/data.js';
-import { ImageUrls } from '../../interfaces/interfaces';
 
 /**
  * Component for main layout for any page in the application.
@@ -19,30 +18,19 @@ import { ImageUrls } from '../../interfaces/interfaces';
   templateUrl: './layout.component.html'
 })
 export class LayoutComponent implements OnInit {
-  loading = true;
-
-  // variables whoses values are set in ngOnInit from data returned
-  // from the server and are referenced from the html file
   headerLogoURL: string;
   footerLogoURL: string;
 
-  /*
-  * Get the data from the server and populate above variables
-  */
-  ngOnInit() {
-    // get the client to connect to CEC
-    const deliveryClient = getDeliveryClient();
+  constructor(private route: ActivatedRoute) {}
 
-    // get the URLs for the images to display in this component
-    fetchImageURLs(deliveryClient, [appConfig.logo, appConfig.footerLogo])
-      .then((urls: ImageUrls) => {
-        this.headerLogoURL = urls[appConfig.logo];
-        this.footerLogoURL = urls[appConfig.footerLogo];
-        this.loading = false;
-      })
-      .catch(error => {
-        console.error(error);
-      });
+  /*
+   * Get the data from the route, the data was obtained
+   * using a resolver before this component was created
+   */
+  ngOnInit() {
+    const data = this.route.snapshot.data;
+    this.headerLogoURL = data.urls[appConfig.logo];
+    this.footerLogoURL = data.urls[appConfig.footerLogo];
   }
 
 }

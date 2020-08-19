@@ -4,12 +4,10 @@
  */
 
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-import getDeliveryClient from '../../scripts/server-config-utils';
-import fetchImageURLs from '../../scripts/services';
 import appConfig from '../../config/data.js';
-import { ImageUrls } from '../../interfaces/interfaces';
 
 /**
  * Component for the Home page.
@@ -19,35 +17,22 @@ import { ImageUrls } from '../../interfaces/interfaces';
   templateUrl: './home-page.component.html'
 })
 export class HomePageComponent implements OnInit {
+  imageURL: string;
 
   /*
    * Set the title in the constructor.
    */
-  constructor(private titleService: Title) {
+  constructor(private route: ActivatedRoute, private titleService: Title) {
     this.titleService.setTitle('Home');
   }
 
-  // variables whoses values are set in ngOnInit from data returned
-  // from the server and are referenced from the html file
-  headerLogoURL: string;
-  footerLogoURL: string;
-  imageURL: string;
-
   /*
-   * Get the data from the server and populate above variables
+   * Get the data from the route, the data was obtained
+   * using a resolver before this component was created
    */
   ngOnInit() {
-    // get the client to connect to CEC
-    const deliveryClient = getDeliveryClient();
-
-    // get the URLs for the image to display in this component
-    fetchImageURLs(deliveryClient, [appConfig.homePage])
-      .then((urls: ImageUrls) => {
-        this.imageURL = urls[appConfig.homePage];
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    const data = this.route.snapshot.data;
+    this.imageURL = data.urls[appConfig.homePage];
   }
 
 }

@@ -18,16 +18,21 @@ import { LocationsComponent } from './locations/locations.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LayoutComponent } from './layout/layout.component';
 
+import { HomePageDataResolver } from '../resolvers/home-page-data.resolver';
+import { ContactUsPageDataResolver } from '../resolvers/contact-us-page-data.resolver';
+
 const appRoutes: Routes = [
   // home page
   {
     path: 'home',
     component: HomePageComponent,
+    resolve: { urls: HomePageDataResolver }
   },
   // Contact us page
   {
     path: 'contact',
     component: ContactUsPageComponent,
+    resolve: { urls: ContactUsPageDataResolver }
   },
   // no path specified, go to home
   {
@@ -56,7 +61,9 @@ const appRoutes: Routes = [
       )
     ],
   providers: [
-    Title
+    Title,
+    HomePageDataResolver,
+    ContactUsPageDataResolver,
   ],
   bootstrap: [
     AppComponent

@@ -39,4 +39,4 @@ COPY dist/oce-angular-minimal-sample dist/samples/oce-angular-minimal-sample/
 # Uses port 8080 of the container -- this is remapped to any host port when running
 EXPOSE 8080
 
-CMD [ "./node_modules/.bin/serve", "-l", "8080", "dist" ]
+CMD [ "node", "dist/oce-angular-minimal-sample/server/main.js ]

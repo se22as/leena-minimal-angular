@@ -19,15 +19,18 @@ def doLint() {
 
 def doBuild() {
     commonBuild.doBuild()
-
     // npm install has been done by platformBuild.doPrepare()
-
-    sh """\
-        ./node_modules/.bin/ng build --prod --base-href /samples/$BRANCH_NAME/
-    """
+    
+    sshagent (credentials: [ GIT_SSH_CREDENTIALS_ID ]) {
+		sh """
+			npm run build:ssr
+			ls -al dist/
+		"""
+    }
 
     commonBuild.makeDockerImage(true)
 }
+
 
 // ----------------------------------------------------------------------------
 // Boilerplate section:

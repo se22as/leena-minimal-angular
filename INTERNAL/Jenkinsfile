@@ -22,10 +22,7 @@ def doBuild() {
     // npm install has been done by platformBuild.doPrepare()
     
     sshagent (credentials: [ GIT_SSH_CREDENTIALS_ID ]) {
-		sh """
-			npm run build:ssr
-			ls -al dist/
-		"""
+	    sh "npm run build:ssr"
     }
 
     commonBuild.makeDockerImage(true)

@@ -16,7 +16,7 @@
     "lint": "ng lint",
     "prod:build:ssr": "ng build --prod --base-href /samples/oce-angular-minimal-sample/ && ng run oce-angular-minimal-sample:server:production",
     "dev:ssr": "ng run oce-angular-minimal-sample:serve-ssr",
-    "serve:ssr": "node dist/oce-angular-minimal-sample/server/main.js",
+    "serve:ssr": "node dist/server/main.js",
     "build:ssr": "ng build --prod && ng run oce-angular-minimal-sample:server:production",
     "prerender": "ng run oce-angular-minimal-sample:prerender"
   },

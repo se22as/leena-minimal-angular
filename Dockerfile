@@ -34,9 +34,9 @@ RUN npm config set registry https://artifacthub-tip.oraclecorp.com/api/npm/npmjs
 
 # The end-user URL will be like: http://server:8080/samples/oce-angular-minimal-sample
 # So the web site needs to be in a samples/oce-angular-minimal-sample subdirectory
-COPY dist/oce-angular-minimal-sample dist/samples/oce-angular-minimal-sample/
+COPY dist dist
 
 # Uses port 8080 of the container -- this is remapped to any host port when running
 EXPOSE 8080
 
-CMD [ "node", "dist/samples/oce-angular-minimal-sample/server/main.js ]
+CMD [ "node", "dist/server/main.js ]

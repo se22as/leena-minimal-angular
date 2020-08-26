@@ -39,4 +39,4 @@ COPY dist dist
 # Uses port 8080 of the container -- this is remapped to any host port when running
 EXPOSE 8080
 
-CMD [ "node", "dist/server/main.js ]
+CMD [ "node", "dist/server/main.js" ]

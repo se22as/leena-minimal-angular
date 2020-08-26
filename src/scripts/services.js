@@ -11,10 +11,11 @@
 /**
  * Fetch the URLs for the specified named images.
  *
- * @returns {Promise({object})} - A Promise containing the data to display on the top level page
- * @param {DeliveryClient} client - The delivery client which will execute the search
- * @param imageNames - Array of item names to get from the server
- * @returns map of image file name and its guid
+ * The data returned is a map of image name to image url.
+ *
+ * @param {DeliveryClient} client - the delivery client
+ * @param {array} imageNames - Array of item names to get from the server
+ * @returns {Promise({Object})} - A Promise containing the data
  */
 export default function fetchImageURLs(client, imageNames) {
   // Build up the query predicate of the format :

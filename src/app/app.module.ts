@@ -3,7 +3,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
-import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserModule, Title, BrowserTransferStateModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -55,6 +55,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserTransferStateModule,
     RouterModule.forRoot(appRoutes, { enableTracing: true, initialNavigation: 'enabled' } // <-- debugging purposes only
 )
     ],

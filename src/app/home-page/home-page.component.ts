@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-import appConfig from '../../config/data.js';
+import { getHomeImageName } from '../../scripts/utils';
 
 /**
  * Component for the Home page.
@@ -34,7 +34,7 @@ export class HomePageComponent implements OnInit {
    */
   ngOnInit() {
     const data = this.route.snapshot.data;
-    this.imageURL = data.urls[appConfig.homePage];
+    this.imageURL = data.urls[getHomeImageName()];
   }
 
 }

@@ -4,7 +4,6 @@
  */
 
 import { createDeliveryClient } from 'contentsdk/content.min';
-import data from '../config/oce.json';
 
 /**
  * Creates a ContentSDK Delivery Client from the data defined in
@@ -15,9 +14,9 @@ export default function getDeliveryClient() {
   // which is expected for the ContentSDK code, therefore we have to
   // have a new object with the keys that the ContentSDK is expecting.
   const serverconfig = {
-    contentServer: data.serverUrl,
-    contentVersion: data.apiVersion,
-    channelToken: data.channelToken,
+    contentServer: process.env.SERVER_URL,
+    contentVersion: process.env.API_VERSION,
+    channelToken: process.env.CHANNEL_TOKEN,
   };
 
   // Obtain the delivery client from the Content Delivery SDK

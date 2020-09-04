@@ -9,7 +9,7 @@ import { Resolve } from '@angular/router';
 
 import getDeliveryClient from '../scripts/server-config-utils';
 import fetchImageURLs from '../scripts/services';
-import appConfig from '../config/data.js';
+import { getHeaderImageName, getFooterImageName, getHomeImageName } from '../scripts/utils';
 
 /**
  * Gets all the data required for the Home Page.
@@ -47,7 +47,11 @@ export class HomePageDataResolver implements Resolve<any> {
       const deliveryClient = getDeliveryClient();
       return fetchImageURLs(
         deliveryClient,
-        [appConfig.logo, appConfig.footerLogo, appConfig.homePage]
+        [
+          getHeaderImageName(),
+          getFooterImageName(),
+          getHomeImageName()
+        ]
       ).then((urls) => {
         if (isPlatformServer(this.platformId)) {
           this.transferState.set(DATA_KEY, urls);

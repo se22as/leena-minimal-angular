@@ -9,7 +9,8 @@ import { Resolve } from '@angular/router';
 
 import getDeliveryClient from '../scripts/server-config-utils';
 import fetchImageURLs from '../scripts/services';
-import { getHeaderImageName, getFooterImageName, getContactUsImageName } from '../scripts/utils';
+
+declare let process: any;
 
 /**
  * Gets all the data required for the Contact Us Page.
@@ -48,9 +49,9 @@ export class ContactUsPageDataResolver implements Resolve<any> {
       return fetchImageURLs(
         deliveryClient,
         [
-          getHeaderImageName(),
-          getFooterImageName(),
-          getContactUsImageName()
+          process.env.LOGO_FILE_NAME,
+          process.env.FOOTER_LOGO_FILE_NAME,
+          process.env.HOME_IMAGE_FILE_NAME,
         ]
       ).then((urls) => {
         if (isPlatformServer(this.platformId)) {

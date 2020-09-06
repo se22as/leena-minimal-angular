@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
-import { getContactUsImageName } from '../../scripts/utils';
+declare let process: any;
 
 /**
  * Component for the Contact Us page.
@@ -34,7 +34,7 @@ export class ContactUsPageComponent implements OnInit {
    */
   ngOnInit() {
     const data = this.route.snapshot.data;
-    this.imageURL = data.urls[getContactUsImageName()];
+    this.imageURL = data.urls[process.env.CONTACTUS_IMAGE_FILE_NAME];
   }
 
 }

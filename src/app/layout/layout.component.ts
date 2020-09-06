@@ -5,7 +5,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { getHeaderImageName, getFooterImageName } from '../../scripts/utils';
+
+declare let process: any;
 
 /**
  * Component for main layout for any page in the application.
@@ -28,8 +29,8 @@ export class LayoutComponent implements OnInit {
    */
   ngOnInit() {
     const data = this.route.snapshot.data;
-    this.headerLogoURL = data.urls[getHeaderImageName()];
-    this.footerLogoURL = data.urls[getFooterImageName()];
+    this.headerLogoURL = data.urls[process.env.LOGO_FILE_NAME];
+    this.footerLogoURL = data.urls[process.env.FOOTER_LOGO_FILE_NAME];
   }
 
 }

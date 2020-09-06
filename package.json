@@ -57,7 +57,6 @@
     "@angular/platform-server": "^9.1.11",
     "@angular/router": "^9.1.11",
     "@nguniversal/express-engine": "^9.1.1",
-    "@types/node": "^14.6.4",
     "contentsdk": "https://samples.mycontentdemo.com/_sitesclouddelivery/renderer/app/sdk/npm/contentsdk-1.1.0.tgz",
     "express": "^4.15.2",
     "rxjs": "^6.5.5",

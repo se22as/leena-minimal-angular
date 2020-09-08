@@ -51,7 +51,7 @@ export class ContactUsPageDataResolver implements Resolve<any> {
         [
           process.env.LOGO_FILE_NAME,
           process.env.FOOTER_LOGO_FILE_NAME,
-          process.env.HOME_IMAGE_FILE_NAME,
+          process.env.CONTACTUS_IMAGE_FILE_NAME,
         ]
       ).then((urls) => {
         if (isPlatformServer(this.platformId)) {

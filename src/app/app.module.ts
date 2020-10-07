@@ -26,18 +26,18 @@ const appRoutes: Routes = [
   {
     path: 'home',
     component: HomePageComponent,
-    resolve: { urls: HomePageDataResolver }
+    resolve: { urls: HomePageDataResolver },
   },
   // Contact us page
   {
     path: 'contact',
     component: ContactUsPageComponent,
-    resolve: { urls: ContactUsPageDataResolver }
+    resolve: { urls: ContactUsPageDataResolver },
   },
   // no path specified, go to home
   {
-    path: '',  redirectTo: '/home', pathMatch: 'full'
-  }
+    path: '', redirectTo: '/home', pathMatch: 'full',
+  },
 ];
 
 @NgModule({
@@ -51,22 +51,23 @@ const appRoutes: Routes = [
     ImageWithTextComponent,
     LocationsComponent,
     WelcomeComponent,
-    LayoutComponent
+    LayoutComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
-    RouterModule.forRoot(appRoutes, { enableTracing: true, initialNavigation: 'enabled' } // <-- debugging purposes only
-)
-    ],
+    RouterModule.forRoot( // <-- debugging purposes only
+      appRoutes, { enableTracing: true, initialNavigation: 'enabled' },
+    ),
+  ],
   providers: [
     Title,
     HomePageDataResolver,
     ContactUsPageDataResolver,
   ],
   bootstrap: [
-    AppComponent
-  ]
+    AppComponent,
+  ],
 })
 
 export class AppModule { }

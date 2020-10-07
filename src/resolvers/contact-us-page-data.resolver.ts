@@ -17,10 +17,10 @@ declare let process: any;
  */
 @Injectable()
 export class ContactUsPageDataResolver implements Resolve<any> {
-
   constructor(
     @Inject(PLATFORM_ID) private platformId,
-    private transferState: TransferState) {}
+    private transferState: TransferState,
+  ) {}
 
   /**
    * Gets all the data required to render the current route.
@@ -42,23 +42,22 @@ export class ContactUsPageDataResolver implements Resolve<any> {
       const urls = this.transferState.get(DATA_KEY, null);
       this.transferState.remove(DATA_KEY);
       return urls;
-    } else {
-      // server side rendering or client side rendering on client side navigation,
-      // there is no transfer state therefore get the data from the OCE server
-      const deliveryClient = getDeliveryClient();
-      return fetchImageURLs(
-        deliveryClient,
-        [
-          process.env.LOGO_FILE_NAME,
-          process.env.FOOTER_LOGO_FILE_NAME,
-          process.env.CONTACTUS_IMAGE_FILE_NAME,
-        ]
-      ).then((urls) => {
-        if (isPlatformServer(this.platformId)) {
-          this.transferState.set(DATA_KEY, urls);
-        }
-        return urls;
-      });
     }
+    // server side rendering or client side rendering on client side navigation,
+    // there is no transfer state therefore get the data from the OCE server
+    const deliveryClient = getDeliveryClient();
+    return fetchImageURLs(
+      deliveryClient,
+      [
+        process.env.LOGO_FILE_NAME,
+        process.env.FOOTER_LOGO_FILE_NAME,
+        process.env.CONTACTUS_IMAGE_FILE_NAME,
+      ],
+    ).then((urls) => {
+      if (isPlatformServer(this.platformId)) {
+        this.transferState.set(DATA_KEY, urls);
+      }
+      return urls;
+    });
   }
 }

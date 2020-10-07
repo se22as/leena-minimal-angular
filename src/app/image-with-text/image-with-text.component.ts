@@ -20,20 +20,24 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-image-with-text',
   templateUrl: './image-with-text.component.html',
-  styleUrls: ['./image-with-text.component.css']
+  styleUrls: ['./image-with-text.component.css'],
 })
 export class ImageWithTextComponent implements OnInit {
-
   // variables passed into this component from another component
   // (note: these could also be referenced in the HTML)
   @Input() backgroundImage: string;
+
   @Input() mainTitle: string;
+
   @Input() subText: string;
+
   @Input() buttonText: string;
+
   @Input() buttonUrl: string;
 
   // determined styles
   textClassNames: string;
+
   imageBackgroundStyle: string;
 
   /*

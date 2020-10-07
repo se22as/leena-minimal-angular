@@ -15,10 +15,11 @@ declare let process: any;
  */
 @Component({
   selector: 'app-layout',
-  templateUrl: './layout.component.html'
+  templateUrl: './layout.component.html',
 })
 export class LayoutComponent implements OnInit {
   headerLogoURL: string;
+
   footerLogoURL: string;
 
   constructor(private route: ActivatedRoute) {}
@@ -28,9 +29,8 @@ export class LayoutComponent implements OnInit {
    * using a resolver before this component was created
    */
   ngOnInit() {
-    const data = this.route.snapshot.data;
+    const { data } = this.route.snapshot;
     this.headerLogoURL = data.urls[process.env.LOGO_FILE_NAME];
     this.footerLogoURL = data.urls[process.env.FOOTER_LOGO_FILE_NAME];
   }
-
 }

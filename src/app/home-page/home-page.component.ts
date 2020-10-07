@@ -16,7 +16,7 @@ declare let process: any;
  */
 @Component({
   selector: 'app-home',
-  templateUrl: './home-page.component.html'
+  templateUrl: './home-page.component.html',
 })
 export class HomePageComponent implements OnInit {
   imageURL: string;
@@ -33,8 +33,7 @@ export class HomePageComponent implements OnInit {
    * using a resolver before this component was created
    */
   ngOnInit() {
-    const data = this.route.snapshot.data;
+    const { data } = this.route.snapshot;
     this.imageURL = data.urls[process.env.HOME_IMAGE_FILE_NAME];
   }
-
 }

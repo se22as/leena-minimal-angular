@@ -16,7 +16,7 @@ declare let process: any;
  */
 @Component({
   selector: 'app-contact-us',
-  templateUrl: '../contact-us-page/contact-us-page.component.html'
+  templateUrl: '../contact-us-page/contact-us-page.component.html',
 })
 export class ContactUsPageComponent implements OnInit {
   imageURL: string;
@@ -33,8 +33,7 @@ export class ContactUsPageComponent implements OnInit {
    * using a resolver before this component was created
    */
   ngOnInit() {
-    const data = this.route.snapshot.data;
+    const { data } = this.route.snapshot;
     this.imageURL = data.urls[process.env.CONTACTUS_IMAGE_FILE_NAME];
   }
-
 }

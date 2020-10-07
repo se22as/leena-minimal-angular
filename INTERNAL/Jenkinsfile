@@ -14,7 +14,7 @@ import groovy.transform.Field
 
 def doLint() {
     commonBuild.doLint()
-    platformBuild.doLint("tslint")
+    platformBuild.doLint("eslint")
 }
 
 def doBuild() {

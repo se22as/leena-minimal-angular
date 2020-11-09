@@ -10,15 +10,20 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+
+    "startcsr": "ng serve",
+    "buildcsr": "ng build",
+
+    "dev": "ng run oce-angular-minimal-sample:serve-ssr",
+    "buildPath": "ng build --prod --base-href /samples/oce-angular-minimal-sample/ && ng run oce-angular-minimal-sample:server:production",
+    "build": "ng build --prod && ng run oce-angular-minimal-sample:server:production",
+    "start": "node dist/server/main.js",
+    
+    "prerender": "ng run oce-angular-minimal-sample:prerender",
+
     "test": "ng test",
     "lint": "eslint ./src --ext .js,.ts",
-    "prod:build:ssr": "ng build --prod --base-href /samples/oce-angular-minimal-sample/ && ng run oce-angular-minimal-sample:server:production",
-    "dev:ssr": "ng run oce-angular-minimal-sample:serve-ssr",
-    "serve:ssr": "node dist/server/main.js",
-    "build:ssr": "ng build --prod && ng run oce-angular-minimal-sample:server:production",
-    "prerender": "ng run oce-angular-minimal-sample:prerender"
+
   },
   "XOracleLicensedTechnologies": [
     {

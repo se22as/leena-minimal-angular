@@ -22,8 +22,7 @@
     "prerender": "ng run oce-angular-minimal-sample:prerender",
 
     "test": "ng test",
-    "lint": "eslint ./src --ext .js,.ts",
-
+    "lint": "eslint ./src --ext .js,.ts"
   },
   "XOracleLicensedTechnologies": [
     {

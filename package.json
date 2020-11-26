@@ -1,6 +1,6 @@
 {
   "name": "oce-angular-minimal-sample",
-  "version": "20.3.1",
+  "version": "21.1.1",
   "description": "",
   "author": "Oracle America, Inc.",
   "license": "UPL-1.0",
@@ -10,46 +10,16 @@
   },
   "scripts": {
     "ng": "ng",
-
     "startcsr": "ng serve",
     "buildcsr": "ng build",
-
     "dev": "ng run oce-angular-minimal-sample:serve-ssr",
     "buildPath": "ng build --prod --base-href /samples/oce-angular-minimal-sample/ && ng run oce-angular-minimal-sample:server:production",
     "build": "ng build --prod && ng run oce-angular-minimal-sample:server:production",
     "start": "node dist/server/main.js",
-    
     "prerender": "ng run oce-angular-minimal-sample:prerender",
-
     "test": "ng test",
     "lint": "eslint ./src --ext .js,.ts"
   },
-  "XOracleLicensedTechnologies": [
-    {
-      "name": "angular",
-      "branch": "9.1.11",
-      "url": "https://github.com/angular/angular.git",
-      "packageIncludes": [
-        "packages/*"
-      ],
-      "packageExcludes": [
-        "packages/http",
-        "packages/bazel"
-      ],
-      "usedPackages": [
-        "@angular-cli",
-        "@angular/core",
-        "@angular/common",
-        "@angular/compiler",
-        "@angular/compiler-cli",
-        "@angular/animations",
-        "@angular/platform-browser",
-        "@angular/platform-browser-dynamic",
-        "@angular/router",
-        "zone.js"
-      ]
-    }
-  ],
   "dependencies": {
     "@angular/animations": "~9.1.12",
     "@angular/common": "~9.1.12",

@@ -4,6 +4,7 @@
  */
 
 import { Component, Input, OnInit } from '@angular/core';
+import getImageUrl from '../../scripts/utils';
 
 /**
  * Component for the Image With Text component.
@@ -38,12 +39,16 @@ export class ImageWithTextComponent implements OnInit {
   // determined styles
   textClassNames: string;
 
-  imageBackgroundStyle: string;
+  imageBackgroundStyle: {};
 
   /*
   * Get the data from the server and populate above variables
   */
   ngOnInit() {
     this.textClassNames = this.buttonText ? 'text adjust-margins' : 'text';
+
+    this.imageBackgroundStyle = {
+      backgroundImage: `url(${getImageUrl(this.backgroundImage)})`,
+    };
   }
 }

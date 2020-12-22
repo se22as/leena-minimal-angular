@@ -8,16 +8,19 @@
   * from the server using the ContentSDK JavaScript Library.
   */
 
+import getClient from './server-config-utils';
+
 /**
  * Fetch the URLs for the specified named images.
  *
  * The data returned is a map of image name to image url.
  *
- * @param {DeliveryClient} client - the delivery client
+ * @param {DelivryClient} client - the delivery client
  * @param {array} imageNames - Array of item names to get from the server
  * @returns {Promise({Object})} - A Promise containing the data
  */
-export default function fetchImageURLs(client, imageNames) {
+export default function fetchImageURLs(imageNames) {
+  const client = getClient();
   // Build up the query predicate of the format :
   // 'name eq "name1" OR name eq "name2" OR name eq "name3"'
   let predicate = '';

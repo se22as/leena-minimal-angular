@@ -4,6 +4,7 @@
  */
 
 import { Component, Input } from '@angular/core';
+import getImageUrl from '../../scripts/utils';
 
 /**
  * Component for the Footer.
@@ -20,4 +21,8 @@ export class FooterComponent {
   // variables passed into this component from another component
   // (note: these could also be referenced in the HTML)
   @Input() logoUrl: string;
+
+  getLogoImage() {
+    return getImageUrl(this.logoUrl);
+  }
 }

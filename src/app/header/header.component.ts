@@ -5,6 +5,7 @@
 
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import getImageUrl from '../../scripts/utils';
 
 /**
  * Component for the Header.
@@ -61,5 +62,9 @@ export class HeaderComponent {
     const menuButton = document.getElementById('nav-menu-button');
     dropDownMenu.className = '';
     menuButton.className = '';
+  }
+
+  getLogoImage() {
+    return getImageUrl(this.logoUrl);
   }
 }

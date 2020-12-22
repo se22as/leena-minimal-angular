@@ -3,9 +3,10 @@ import 'zone.js/dist/zone-node';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
+import * as http from 'http';
 
-import { AppServerModule } from './src/main.server';
 import { existsSync } from 'fs';
+import { AppServerModule } from './src/main.server';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app() {
@@ -25,11 +26,54 @@ export function app() {
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
+  /*
+  * Handle proxied OCE server calls to '/content/'.
+  *
+  * When authorization is needed for the calls to OCE
+  * - all image requests will be proxied through here regardless of server or client side rendering
+  * - browser requests for content are proxied through here (server content requests will never be
+  *   proxied)
+  * - this server will pass on the call to the OCE server adding on the authorization headers and
+  *   returning the OCE response.
+  * This ensures the browser will never have the authorization header visible in its requests.
+  *
+  * See the following files where proxying is setup
+  * - '/src/scripts/server-config-utils.getClient' for the code proxying requests for content
+  * - 'src/scripts/utils.getImageUrl' for the code proxying requests for image binaries
+  */
+  server.use('/content/', (req, res) => {
+    let content = process.env.SERVER_URL.charAt(process.env.SERVER_URL.length - 1) === '/'
+      ? 'content' : '/content';
+    if (req.url.charAt(0) !== '/') {
+      content = `${content}/`;
+    }
+    const oceUrl = `${process.env.SERVER_URL}${content}${req.url}`;
+
+    let options = {};
+    if (process.env.AUTH) {
+      options = {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        headers: { Authorization: process.env.AUTH },
+      };
+    }
+
+    const proxy = http.request(oceUrl, options, (proxyResponse) => {
+      res.writeHead(proxyResponse.statusCode, proxyResponse.headers);
+      proxyResponse.pipe(res, {
+        end: true,
+      });
+    });
+
+    req.pipe(proxy, {
+      end: true,
+    });
+  });
+
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
   server.get('*.*', express.static(distFolder, {
-    maxAge: '1y'
+    maxAge: '1y',
   }));
 
   // All regular routes use the Universal engine

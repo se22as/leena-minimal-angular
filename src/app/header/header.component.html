@@ -10,7 +10,7 @@
 
   <!-- Header Logo -->
   <a [routerLink]="['/']" >
-      <img id="header-image" src={{logoUrl}} alt="Company Logo" />
+      <img id="header-image" [src]="getLogoImage()" alt="Company Logo" />
   </a>
 
   <!-- Menu : Home | Contact Us -->

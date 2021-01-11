@@ -13,8 +13,8 @@
  * Utility method to log an error.
  */
 function logError(message, error) {
-  if (error && typeof error.getMessage === 'function') {
-    console.error(message, error.getMessage());
+  if (error && typeof error.statusMessage) {
+    console.log(`${message} : `, error.statusMessage);
   } else if (error) {
     console.error(message, error);
   }
@@ -58,5 +58,5 @@ export default function fetchImageURLs(client, imageNames) {
     }
 
     return imageURLs;
-  }).catch((error) => logError('Fetching images failed :', error));
+  }).catch((error) => logError('Fetching images failed', error));
 }

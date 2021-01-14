@@ -39,4 +39,8 @@ COPY dist dist
 # Uses port 8080 of the container -- this is remapped to any host port when running
 EXPOSE 8080
 
+# Specify the proxy servers as the demo app is using a public server
+ENV oce_http_proxy=http://www-proxy-brmdc.us.oracle.com:80
+ENV oce_https_proxy=http://www-proxy-brmdc.us.oracle.com:80
+
 CMD [ "node", "dist/server/main.js" ]

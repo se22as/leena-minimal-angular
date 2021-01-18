@@ -13,8 +13,12 @@
  * Utility method to log an error.
  */
 function logError(message, error) {
-  if (error && typeof error.statusMessage) {
+  if (error && error.statusMessage) {
     console.log(`${message} : `, error.statusMessage);
+  } else if (error.error && error.error.code && error.error.code === 'ETIMEDOUT') {
+    console.log(`${message} : `, error);
+  } else if (error.error && error.error.code) {
+    console.log(`${message} : `, error.error.code);
   } else if (error) {
     console.error(message, error);
   }
@@ -47,7 +51,6 @@ export default function fetchImageURLs(imageNames) {
   // Search for the items and get the Rendition URL for each item
   return client.queryItems({
     q: queryString,
-    fields: 'all',
   }).then((result) => {
     const imageURLs = {};
 

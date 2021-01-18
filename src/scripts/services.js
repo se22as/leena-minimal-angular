@@ -48,7 +48,6 @@ export default function fetchImageURLs(client, imageNames) {
   // Search for the items and get the Rendition URL for each item
   return client.queryItems({
     q: queryString,
-    fields: 'all',
   }).then((result) => {
     const imageURLs = {};
 

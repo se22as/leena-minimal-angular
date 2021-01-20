@@ -19,6 +19,9 @@ export default function getDeliveryClient() {
     channelToken: process.env.CHANNEL_TOKEN,
   };
 
+  // Add the following if you want logging from the ContentSDK shown in the console
+  // serverconfig.logger = console;
+
   // Obtain the delivery client from the Content Delivery SDK
   // using the specified configuration information
   const deliveryClient = createDeliveryClient(serverconfig);

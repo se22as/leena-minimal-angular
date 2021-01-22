@@ -1,9 +1,19 @@
+/* eslint-disable no-mixed-operators */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-undef */
+/* eslint-disable camelcase */
+/* eslint-disable no-underscore-dangle */
+/**
+ * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+ * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+ */
 import 'zone.js/dist/zone-node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
 import * as http from 'http';
+import * as https from 'https';
 
 import { existsSync } from 'fs';
 import { AppServerModule } from './src/main.server';
@@ -42,6 +52,12 @@ export function app() {
   * - 'src/scripts/utils.getImageUrl' for the code proxying requests for image binaries
   */
   server.use('/content/', (req, res) => {
+    // only proxy GET requests, ignore all other requests
+    if (req.method !== 'GET') {
+      return;
+    }
+
+    // build the URL to the real server
     let content = process.env.SERVER_URL.charAt(process.env.SERVER_URL.length - 1) === '/'
       ? 'content' : '/content';
     if (req.url.charAt(0) !== '/') {
@@ -49,20 +65,26 @@ export function app() {
     }
     const oceUrl = `${process.env.SERVER_URL}${content}${req.url}`;
 
+    // Add the authorization header
     let options = {};
     if (process.env.AUTH) {
       options = {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
         headers: { Authorization: process.env.AUTH },
       };
     }
 
-    const proxy = http.request(oceUrl, options, (proxyResponse) => {
+    // define a function that writes the proxied content to the response
+    const writeProxyContent = (proxyResponse) => {
       res.writeHead(proxyResponse.statusCode, proxyResponse.headers);
       proxyResponse.pipe(res, {
         end: true,
       });
-    });
+    };
+
+    // based on whether the Content server is HTTP or HTTPS make the request to it
+    const proxy = (oceUrl.startsWith('https'))
+      ? https.request(oceUrl, options, (proxyResponse) => writeProxyContent(proxyResponse))
+      : http.request(oceUrl, options, (proxyResponse) => writeProxyContent(proxyResponse));
 
     req.pipe(proxy, {
       end: true,
@@ -90,6 +112,7 @@ function run() {
   // Start up the Node server
   const server = app();
   server.listen(port, () => {
+    // eslint-disable-next-line no-console
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
 }

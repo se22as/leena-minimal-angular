@@ -12,6 +12,8 @@
 /*
  * Utility method to log an error.
  */
+import getClient from './server-config-utils';
+
 function logError(message, error) {
   if (error && error.statusMessage) {
     console.log(`${message} : `, error.statusMessage);
@@ -23,8 +25,6 @@ function logError(message, error) {
     console.error(message, error);
   }
 }
-
-import getClient from './server-config-utils';
 
 /**
  * Fetch the URLs for the specified named images.

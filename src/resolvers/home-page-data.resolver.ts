@@ -7,7 +7,6 @@ import { isPlatformServer } from '@angular/common';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { Resolve } from '@angular/router';
 
-import getDeliveryClient from '../scripts/server-config-utils';
 import fetchImageURLs from '../scripts/services';
 
 declare let process: any;
@@ -45,15 +44,14 @@ export class HomePageDataResolver implements Resolve<any> {
     }
     // server side rendering or client side rendering on client side navigation,
     // there is no transfer state therefore get the data from the OCE server
-    const deliveryClient = getDeliveryClient();
     return fetchImageURLs(
-      deliveryClient,
       [
         process.env.LOGO_FILE_NAME,
         process.env.FOOTER_LOGO_FILE_NAME,
         process.env.HOME_IMAGE_FILE_NAME,
       ],
     ).then((urls) => {
+      console.log(urls);
       if (isPlatformServer(this.platformId)) {
         this.transferState.set(DATA_KEY, urls);
       }

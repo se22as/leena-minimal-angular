@@ -8,5 +8,14 @@
  */
 
 export interface ImageUrls {
-  [key: string]: string;
+  srcset: string;
+  jpgSrcset: string;
+  thumbnail: string;
+  small: string;
+  medium: string;
+  large: string;
+  native: string;
+  width: string;
+  height: string;
 }
+

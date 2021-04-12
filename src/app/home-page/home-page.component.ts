@@ -6,6 +6,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { ImageUrls } from '../../interfaces/interfaces';
 
 declare let process: any;
 
@@ -19,7 +20,7 @@ declare let process: any;
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent implements OnInit {
-  imageURL: string;
+  imageURL: ImageUrls;
 
   /*
    * Set the title in the constructor.

@@ -13,6 +13,7 @@
     "startcsr": "ng serve",
     "buildcsr": "ng build",
     "dev": "ng run oce-angular-minimal-sample:serve-ssr",
+    "l": "npm run build && npm run start",
     "buildPath": "ng build --prod --base-href /samples/oce-angular-minimal-sample/ && ng run oce-angular-minimal-sample:server:production",
     "build": "ng build --prod && ng run oce-angular-minimal-sample:server:production",
     "start": "node dist/server/main.js",

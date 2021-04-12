@@ -1,4 +1,4 @@
-<!-- 
+<!--
   Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
   Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 -->
@@ -9,9 +9,10 @@
   This component is just HTML, there is no logic.
 -->
 <div>
-  <app-header logoUrl={{headerLogoURL}}></app-header>    
-  
+  In layout component headerlogourl.native={{headerLogoURL.native}}
+  <app-header logoUrl={{headerLogoURL}}></app-header>
+
   <ng-content></ng-content>
-  
+  In footer component footerLogoURL.native={{footerLogoURL.native}}
   <app-footer logoUrl={{footerLogoURL}}></app-footer>
 </div>

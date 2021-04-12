@@ -4,6 +4,7 @@
  */
 
 import { Component, Input, OnInit } from '@angular/core';
+import { ImageUrls } from 'src/interfaces/interfaces';
 
 /**
  * Component for the Image With Text component.
@@ -20,12 +21,11 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-image-with-text',
   templateUrl: './image-with-text.component.html',
-  styleUrls: ['./image-with-text.component.css'],
 })
 export class ImageWithTextComponent implements OnInit {
   // variables passed into this component from another component
   // (note: these could also be referenced in the HTML)
-  @Input() backgroundImage: string;
+  @Input() backgroundImage: ImageUrls;
 
   @Input() mainTitle: string;
 
@@ -44,6 +44,7 @@ export class ImageWithTextComponent implements OnInit {
   * Get the data from the server and populate above variables
   */
   ngOnInit() {
+    console.log("IN IMAGE WITH TEXT ONINIT" + this.backgroundImage.srcset);
     this.textClassNames = this.buttonText ? 'text adjust-margins' : 'text';
   }
 }

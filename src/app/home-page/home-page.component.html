@@ -8,9 +8,8 @@
 -->
 <app-layout>
   <div id="home-container">
-    Sending to app-image-with-text component{{imageURL}}
     <app-image-with-text
-      backgroundImage={{imageURL}}
+      [backgroundImage]="imageURL"
       mainTitle="Want to use OCE with your Headless implementation?"
       subText="Try out OCE Samples, these are tutorials that explain how simple it is to use OCE with your Headless Experience.">
     </app-image-with-text>

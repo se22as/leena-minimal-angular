@@ -90,7 +90,6 @@ export default function fetchImageURLs(imageNames) {
     predicate += `name eq "${imageNames[i]}"`;
   }
   const queryString = `((${predicate}) AND type eq "Image")`;
-
   // Search for the items and get the Rendition URL for each item
   return client
     .queryItems({

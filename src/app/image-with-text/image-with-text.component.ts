@@ -4,7 +4,7 @@
  */
 
 import { Component, Input, OnInit } from '@angular/core';
-import { ImageUrls } from 'src/interfaces/interfaces';
+import { ImageRenditions } from 'src/interfaces/interfaces';
 
 /**
  * Component for the Image With Text component.
@@ -25,7 +25,7 @@ import { ImageUrls } from 'src/interfaces/interfaces';
 export class ImageWithTextComponent implements OnInit {
   // variables passed into this component from another component
   // (note: these could also be referenced in the HTML)
-  @Input() backgroundImage: ImageUrls;
+  @Input() backgroundImage: ImageRenditions;
 
   @Input() mainTitle: string;
 
@@ -44,7 +44,6 @@ export class ImageWithTextComponent implements OnInit {
   * Get the data from the server and populate above variables
   */
   ngOnInit() {
-    console.log("IN IMAGE WITH TEXT ONINIT" + this.backgroundImage.srcset);
     this.textClassNames = this.buttonText ? 'text adjust-margins' : 'text';
   }
 }

@@ -9,10 +9,9 @@
   This component is just HTML, there is no logic.
 -->
 <div>
-  In layout component headerlogourl.native={{headerLogoURL.native}}
-  <app-header logoUrl={{headerLogoURL}}></app-header>
+  <app-header [logoUrl]="headerLogoURL"></app-header>
 
   <ng-content></ng-content>
-  In footer component footerLogoURL.native={{footerLogoURL.native}}
-  <app-footer logoUrl={{footerLogoURL}}></app-footer>
+
+  <app-footer [logoUrl]="footerLogoURL"></app-footer>
 </div>

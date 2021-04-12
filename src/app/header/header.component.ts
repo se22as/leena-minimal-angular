@@ -5,7 +5,7 @@
 
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ImageUrls } from 'src/interfaces/interfaces';
+import { ImageRenditions } from 'src/interfaces/interfaces';
 
 /**
  * Component for the Header.
@@ -20,7 +20,7 @@ import { ImageUrls } from 'src/interfaces/interfaces';
 export class HeaderComponent {
   // variables passed into this component from another component
   // (note: these could also be referenced in the HTML)
-  @Input() logoUrl: ImageUrls;
+  @Input() logoUrl: ImageRenditions;
 
   // variables whoses values are set in ngOnInit and are referenced from the html file
   currentNavIndex: number;

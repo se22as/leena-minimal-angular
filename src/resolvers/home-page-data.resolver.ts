@@ -51,7 +51,6 @@ export class HomePageDataResolver implements Resolve<any> {
         process.env.HOME_IMAGE_FILE_NAME,
       ],
     ).then((urls) => {
-      console.log(urls);
       if (isPlatformServer(this.platformId)) {
         this.transferState.set(DATA_KEY, urls);
       }

@@ -7,7 +7,7 @@
  * This file contains the definitions of all the data used in this application
  */
 
-export interface ImageUrls {
+export interface ImageRenditions {
   srcset: string;
   jpgSrcset: string;
   thumbnail: string;

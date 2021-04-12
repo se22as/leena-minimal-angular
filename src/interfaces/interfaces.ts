@@ -18,4 +18,3 @@ export interface ImageRenditions {
   width: string;
   height: string;
 }
-

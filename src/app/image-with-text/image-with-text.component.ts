@@ -4,7 +4,7 @@
  */
 
 import { Component, Input, OnInit } from '@angular/core';
-import { ImageRenditions } from 'src/interfaces/interfaces';
+import { ImageRenditions } from '../../interfaces/interfaces';
 
 /**
  * Component for the Image With Text component.

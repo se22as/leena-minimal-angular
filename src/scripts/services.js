@@ -3,6 +3,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 /* eslint-disable no-param-reassign */
+/* eslint-disable no-console */
 
 import getDeliveryClient from './server-config-utils';
 

@@ -5,7 +5,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ImageRenditions } from 'src/interfaces/interfaces';
+import { ImageRenditions } from '../../interfaces/interfaces';
 
 declare let process: any;
 

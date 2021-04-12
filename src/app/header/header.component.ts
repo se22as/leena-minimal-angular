@@ -5,7 +5,7 @@
 
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ImageRenditions } from 'src/interfaces/interfaces';
+import { ImageRenditions } from '../../interfaces/interfaces';
 
 /**
  * Component for the Header.

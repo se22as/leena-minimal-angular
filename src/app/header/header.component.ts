@@ -5,7 +5,7 @@
 
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import getImageUrl from '../../scripts/utils';
+import { ImageRenditions } from '../../interfaces/interfaces';
 
 /**
  * Component for the Header.
@@ -16,12 +16,11 @@ import getImageUrl from '../../scripts/utils';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
   // variables passed into this component from another component
   // (note: these could also be referenced in the HTML)
-  @Input() logoUrl: string;
+  @Input() logoUrl: ImageRenditions;
 
   // variables whoses values are set in ngOnInit and are referenced from the html file
   currentNavIndex: number;
@@ -62,9 +61,5 @@ export class HeaderComponent {
     const menuButton = document.getElementById('nav-menu-button');
     dropDownMenu.className = '';
     menuButton.className = '';
-  }
-
-  getLogoImage() {
-    return getImageUrl(this.logoUrl);
   }
 }

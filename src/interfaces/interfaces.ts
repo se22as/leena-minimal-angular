@@ -7,6 +7,14 @@
  * This file contains the definitions of all the data used in this application
  */
 
-export interface ImageUrls {
-  [key: string]: string;
+export interface ImageRenditions {
+  srcset: string;
+  jpgSrcset: string;
+  thumbnail: string;
+  small: string;
+  medium: string;
+  large: string;
+  native: string;
+  width: string;
+  height: string;
 }

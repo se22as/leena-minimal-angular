@@ -5,6 +5,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ImageRenditions } from '../../interfaces/interfaces';
 
 declare let process: any;
 
@@ -18,9 +19,9 @@ declare let process: any;
   templateUrl: './layout.component.html',
 })
 export class LayoutComponent implements OnInit {
-  headerLogoURL: string;
+  headerLogoURL: ImageRenditions;
 
-  footerLogoURL: string;
+  footerLogoURL: ImageRenditions;
 
   constructor(private route: ActivatedRoute) {}
 

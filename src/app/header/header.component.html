@@ -1,4 +1,4 @@
-<!-- 
+<!--
   Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
   Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 -->
@@ -10,7 +10,11 @@
 
   <!-- Header Logo -->
   <a [routerLink]="['/']" >
-      <img id="header-image" [src]="getLogoImage()" alt="Company Logo" />
+    <picture>
+      <source type="image/webp" srcset={{logoUrl.srcset}} />
+      <img id="header-image" src={{logoUrl.native}} alt="Company Logo"
+        width={{logoUrl.width}} height={{logoUrl.height}} />
+    </picture>
   </a>
 
   <!-- Menu : Home | Contact Us -->
@@ -31,7 +35,7 @@
            (click)="onMenuItemClicked(1)"
            [routerLink]="['/contact']">Contact Us</a>
       </li>
-    </ul>        
+    </ul>
   </nav>
 
 </header>

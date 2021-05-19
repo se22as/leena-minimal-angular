@@ -96,7 +96,6 @@ export default function fetchImageURLs(imageNames) {
   return client
     .queryItems({
       q: queryString,
-      fields: 'all',
     })
     .then((result) => {
       const imageURLs = {};

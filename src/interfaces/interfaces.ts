@@ -18,3 +18,10 @@ export interface ImageRenditions {
   width: string;
   height: string;
 }
+
+// -- PROXY SERVER --
+
+// Note: the headers are optional in the HttpOptions
+export interface HttpOptions {
+  headers?: {} ;
+}

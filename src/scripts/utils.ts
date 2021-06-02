@@ -2,6 +2,8 @@
  * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
+import { isAuthNeeded } from './server-config-utils';
+
 declare let process: any;
 
 /**
@@ -16,7 +18,7 @@ declare let process: any;
  * @param String originalUrl the image's original url
  */
 export default function getImageUrl(originalUrl) {
-  if (process.env.AUTH) {
+  if (isAuthNeeded()) {
     // strip off the server URL from the front of the URL to make a relative URL
     // causing the request to go to this application's Express server
     return originalUrl.replace(process.env.SERVER_URL, '');

@@ -47,7 +47,7 @@ export class ImageWithTextComponent implements OnInit {
     this.textClassNames = this.buttonText ? 'text adjust-margins' : 'text';
 
     this.imageBackgroundStyle = {
-      backgroundImage: `url(this.backgroundImage))`,
+      backgroundImage: 'url(this.backgroundImage))',
     };
   }
 }

@@ -8,13 +8,13 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 import 'zone.js/dist/zone-node';
-
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
 import * as http from 'http';
 import * as https from 'https';
-
+import { getAuthValue, isAuthNeeded } from './src/scripts/server-config-utils';
+import { HttpOptions } from 'src/interfaces/interfaces';
 import { existsSync } from 'fs';
 import { AppServerModule } from './src/main.server';
 
@@ -37,21 +37,9 @@ export function app() {
   server.set('views', distFolder);
 
   /*
-  * Handle proxied OCE server calls to '/content/'.
-  *
-  * When authorization is needed for the calls to OCE
-  * - all image requests will be proxied through here regardless of server or client side rendering
-  * - browser requests for content are proxied through here (server content requests will never be
-  *   proxied)
-  * - this server will pass on the call to the OCE server adding on the authorization headers and
-  *   returning the OCE response.
-  * This ensures the browser will never have the authorization header visible in its requests.
-  *
-  * See the following files where proxying is setup
-  * - '/src/scripts/server-config-utils.getClient' for the code proxying requests for content
-  * - 'src/scripts/utils.getImageUrl' for the code proxying requests for image binaries
-  */
-  server.use('/content/', (req, res) => {
+   * Handle the proxy request.
+   */
+  function handleContentRequest(req, res, authValue) {
     // only proxy GET requests, ignore all other requests
     if (req.method !== 'GET') {
       return;
@@ -66,11 +54,9 @@ export function app() {
     const oceUrl = `${process.env.SERVER_URL}${content}${req.url}`;
 
     // Add the authorization header
-    let options = {};
-    if (process.env.AUTH) {
-      options = {
-        headers: { Authorization: process.env.AUTH },
-      };
+    let options : HttpOptions = {};
+    if (authValue) {
+      options.headers = { Authorization: authValue };
     }
 
     // define a function that writes the proxied content to the response
@@ -86,9 +72,35 @@ export function app() {
       ? https.request(oceUrl, options, (proxyResponse) => writeProxyContent(proxyResponse))
       : http.request(oceUrl, options, (proxyResponse) => writeProxyContent(proxyResponse));
 
+    // write the proxied response to this request's response
     req.pipe(proxy, {
       end: true,
     });
+  }
+
+  /*
+   * Route handler for requests to '/content/'.
+   *
+   * When authorization is needed for the calls to OCE
+   * - all image requests will be proxied through here regardless of server or client side rendering
+   * - browser requests for content are proxied through here (server content requests will never be
+   *   proxied)
+   * - this server will pass on the call to the OCE server adding on the authorization headers and
+   *   returning the OCE response.
+   * This ensures the browser will never have the authorization header visible in its requests.
+   *
+   * See the following files where proxying is setup
+   * - 'src/scripts/server-config-utils.getClient' for the code proxying requests for content
+   * - 'src/scripts/utils.getImageUrl' for the code proxying requests for image binaries
+   */
+  server.use('/content/', (req, res) => {
+    if (isAuthNeeded()) {
+      getAuthValue().then((authValue) => {
+        handleContentRequest(req, res, authValue);
+      });
+    } else {
+      handleContentRequest(req, res, '');
+    }
   });
 
   // Example Express Rest API endpoints

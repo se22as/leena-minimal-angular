@@ -1,16 +1,143 @@
 /* eslint-disable no-param-reassign */
+/* eslint-disable camelcase */
+
 /**
- * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2020, 2021 Oracle and/or its affiliates.
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
-import { createDeliveryClient, createPreviewClient } from 'contentsdk/content.min';
+import { createDeliveryClient, createPreviewClient } from '@oracle/contentsdk';
+import fetch from 'node-fetch';
 
-declare let process: any;
+declare const process: any;
+declare const Buffer: any;
+
+/**
+ * This file contains methods to create an OCE Content SDK client to make calls to the OCE
+ * server. A "delivery client" is used to view content which has been published to a public
+ * channel or published to a secure channel.  The "preview client" is used to view content
+ * which has been assigned to a channel but has not yet been published.
+ *
+ * The minimal information which needs to be specified is the server URL, the rest API version
+ * to use and the channel token for the channel which contains the data to display in the app.
+ *
+ * When previewing content or using content in a secure channel, authentication is required.
+ *
+ * The AUTH_VALUE environment variable is used to specify the Authentication header value
+ * (including "Basic"/"Bearer") when the value does not change.
+ *
+ * In OAuth environments, the CLIENT_ID/CLIENT_SECRET/CLIENT_SCOPE_URL/IDCS_URL environment
+ * variables are used to to create and refresh an access token.
+ *
+ * When authentication is required, a "beforeSend" function has to be specified when creating
+ * the Content SDK client.  This callback function is called just before the REST request
+ * is made to OCE in order for the caller to add additional things to the request. This is where
+ * the Authorization header is added.
+ */
 
 /*
- * This function is called from the ContentSDK before it makes any REST calls
- * when running on the server ()
+ * Time added to an access-token's expiry to ensure the token is refreshed before it
+ * actually expires.
+ */
+const FIVE_SECONDS_MS = 5000;
+
+/**
+ * Module global variable containing the authentication header value
+ * for any server requests.
+ * for any server requests and the authExpiry if using OAuth
+ */
+let globalAuthValue = '';
+let globalAuthExpiry = null;
+
+/**
+ * Indicates if authorization is needed on the requests to OCE.
+ */
+export function isAuthNeeded() {
+  if (process.env.AUTH || process.env.CLIENT_ID) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Gets the Bearer authorization needed when using preview content or
+ * content published to a secure channel.
+ *
+ * This will create a NEW access_token with a new expiry
+ *
+ * This is only called when rendering on the server, therefore we are safe
+ * to use node-fetch and do not have to have a client version
+ */
+async function getBearerAuth() {
+  // base64 encode CLIENT_ID:CLIENT_SECRET
+  const authString = `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`;
+  const authValue = (Buffer.from(authString)).toString('base64');
+
+  // URL encode the CLIENT_SCOPE_URL
+  const encodedScopeUrl = encodeURIComponent(process.env.CLIENT_SCOPE_URL);
+
+  // build the full REST end point URL for getting the access token
+  const restURL = new URL('/oauth2/v1/token', process.env.IDCS_URL);
+
+  // make a request to the server to get the access token
+  const response = await fetch(restURL.toString(), {
+    body: `grant_type=client_credentials&scope=${encodedScopeUrl}`,
+    headers: {
+      Authorization: `Basic ${authValue}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    method: 'POST',
+  });
+  const responseJSON = await response.json();
+
+  // get the access token and expiry from the response
+  // and return an object containing the values
+  const { access_token } = responseJSON;
+  const expiry = responseJSON.expires_in;
+
+  return {
+    authHeaderValue: `Bearer ${access_token}`,
+    expiry,
+  };
+}
+
+/**
+ * Returns the auth value for any requests
+ */
+export async function getAuthValue() {
+  if (process.env.AUTH) {
+    // if Auth has been specified set it as the global value
+    globalAuthValue = process.env.AUTH;
+  } else if (process.env.CLIENT_ID) {
+    // Client ID specified which means the OAuth token needs to be generated if
+    // token has not already been created, or it has expired
+    const currentDate = new Date();
+    // if the auth token has expired, refresh it, otherwise existing value will be returned
+    // add a 5 second buffer to the expiry time
+    if (!globalAuthValue || !globalAuthExpiry
+       || (globalAuthExpiry.getTime() + FIVE_SECONDS_MS) > currentDate.getTime()) {
+      globalAuthValue = '';
+      const authDetails = await getBearerAuth();
+      globalAuthValue = authDetails.authHeaderValue;
+      // Auth Expiry
+      // calculate expiry, get the current data (in ms), add the expiry ms, then
+      // create a new Date object, using the adjusted milliseconds time
+      let currDateMS = Date.now();
+      currDateMS += authDetails.expiry;
+      globalAuthExpiry = new Date(currDateMS);
+    }
+  } else {
+    // no auth needed
+    globalAuthValue = null;
+    globalAuthExpiry = null;
+  }
+  return globalAuthValue;
+}
+
+/*
+ * This function is called from the ContentSDK before it makes any REST calls.
+
+ * This is only called when rendering on the server.
  *
  * When this method is called from the node server, authorization headers are
  * added. This only needs to be done when rendering on the server as any client
@@ -18,8 +145,17 @@ declare let process: any;
  * 'src/server/server.js)
  */
 function beforeSendCallback(param) {
-  param.headers = param.headers || {};
-  param.headers.authorization = process.env.AUTH;
+  return new Promise((resolve, reject) => {
+    try {
+      return getAuthValue().then((authValue) => {
+        param.headers = param.headers || {};
+        param.headers.authorization = authValue;
+        return resolve(true);
+      });
+    } catch (e) {
+      return reject(new Error('Error getting auth value'));
+    }
+  });
 }
 
 /**
@@ -33,16 +169,15 @@ export default function getClient() {
   // - the ServerURL for the ContentSDK client will be this application's host
   //
   // See the following files where proxying is setup/dome
-  // - '/src/scripts/utils.getImageUrl' for the code proxying requests for image binaries
+  // - 'src/scripts/utils.getImageUrl' for the code proxying requests for image binaries
   // - 'src/server/server' for the Express server proxying.
   const isBrowser = (typeof window !== 'undefined' && typeof window.document !== 'undefined');
-  const serverURL = (process.env.AUTH && isBrowser)
+
+  const serverURL = (isAuthNeeded() && isBrowser)
     ? `${window.location.origin}/`
     : process.env.SERVER_URL;
 
-  let serverconfig: any = {};
-
-  serverconfig = {
+  const serverconfig: any = {
     contentServer: serverURL,
     contentVersion: process.env.API_VERSION,
     channelToken: process.env.CHANNEL_TOKEN,
@@ -50,15 +185,16 @@ export default function getClient() {
 
   // if authorization is needed to get data from OCE and this is running on the server, add the
   // 'beforeSend' callback so the authorization header can be added to the OCE server requests
-  if (process.env.AUTH && !isBrowser) {
+  if (isAuthNeeded() && !isBrowser) {
     serverconfig.beforeSend = beforeSendCallback;
-    serverconfig.authorization = process.env.AUTH;
   }
 
-  // create and return the relevant client
-  const client = process.env.PREVIEW
-    ? createPreviewClient(serverconfig)
-    : createDeliveryClient(serverconfig);
+  // Add the following if you want logging from the ContentSDK shown in the console
+  // serverconfig.logger = console;
 
-  return client;
+  // create and return the relevant client
+  if (process.env.PREVIEW) {
+    return createPreviewClient(serverconfig);
+  }
+  return createDeliveryClient(serverconfig);
 }

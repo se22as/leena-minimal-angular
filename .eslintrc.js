@@ -91,7 +91,7 @@ module.exports = {
 
       rules: {
         'no-unused-vars': ['error', { vars: 'all', args: 'none', ignoreRestSiblings: true }],
-        'no-useless-constructor': 'off',
+        'no-useless-constructor': 'off',        
 
         // IMPORT
         'import/prefer-default-export': 'off',
@@ -125,6 +125,14 @@ module.exports = {
         '@typescript-eslint/no-useless-constructor': 'error',
         '@typescript-eslint/prefer-namespace-keyword': 'error',
         '@typescript-eslint/type-annotation-spacing': 'error',
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": "variable",
+            "format": []
+          },
+        ],
+
       },
     },
     {

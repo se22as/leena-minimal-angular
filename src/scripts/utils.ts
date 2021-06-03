@@ -11,7 +11,7 @@ declare let process: any;
  * goes to this application's Express server in order for the authorization
  * headers are added to the request.
  *
- * See the following files where proxying is setup/dome
+ * See the following files where proxying is setup/done
  * - '/src/scripts/server-config-utils.getClient' for the code proxying requests for content
  * - 'src/server/server' for the Express server proxying.
  *

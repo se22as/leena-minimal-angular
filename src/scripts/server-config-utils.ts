@@ -168,7 +168,7 @@ export default function getClient() {
   //   Express server
   // - the ServerURL for the ContentSDK client will be this application's host
   //
-  // See the following files where proxying is setup/dome
+  // See the following files where proxying is setup/done
   // - 'src/scripts/utils.getImageUrl' for the code proxying requests for image binaries
   // - 'src/server/server' for the Express server proxying.
   const isBrowser = (typeof window !== 'undefined' && typeof window.document !== 'undefined');

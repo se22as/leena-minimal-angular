@@ -12,7 +12,7 @@ declare let process: any;
  * headers are added to the request.
  *
  * See the following files where proxying is setup/done
- * - '/src/scripts/server-config-utils.getClient' for the code proxying requests for content
+ * - 'src/scripts/server-config-utils.getClient' for the code proxying requests for content
  * - 'src/server/server' for the Express server proxying.
  *
  * @param String originalUrl the image's original url

@@ -25,7 +25,7 @@ export class ContactUsPageDataResolver implements Resolve<any> {
    * Gets all the data required to render the current route.
    *
    * If the transfer state already has the data then the data is returned from the transfer state.
-   * Otherwise a call to OCE is made to get the data.
+   * Otherwise a call to Oracle Content is made to get the data.
    *
    * The transfer state will already have data when hydrating the client when content was rendered
    * on the server.  The transfer state will not already have the data when rendering server side
@@ -43,7 +43,7 @@ export class ContactUsPageDataResolver implements Resolve<any> {
       return urls;
     }
     // server side rendering or client side rendering on client side navigation,
-    // there is no transfer state therefore get the data from the OCE server
+    // there is no transfer state therefore get the data from Oracle Content
     return fetchImageURLs(
       [
         process.env.LOGO_FILE_NAME,

@@ -13,8 +13,8 @@ declare const process: any;
 declare const Buffer: any;
 
 /**
- * This file contains methods to create an OCE Content SDK client to make calls to the OCE
- * server. A "delivery client" is used to view content which has been published to a public
+ * This file contains methods to create an Oracle Content SDK client to make calls to the Oracle
+ * Content. A "delivery client" is used to view content which has been published to a public
  * channel or published to a secure channel.  The "preview client" is used to view content
  * which has been assigned to a channel but has not yet been published.
  *
@@ -31,7 +31,7 @@ declare const Buffer: any;
  *
  * When authentication is required, a "beforeSend" function has to be specified when creating
  * the Content SDK client.  This callback function is called just before the REST request
- * is made to OCE in order for the caller to add additional things to the request. This is where
+ * is made to Oracle Content in order for the caller to add additional things to the request. This is where
  * the Authorization header is added.
  */
 
@@ -50,7 +50,7 @@ let globalAuthValue = '';
 let globalAuthExpiry = null;
 
 /**
- * Indicates if authorization is needed on the requests to OCE.
+ * Indicates if authorization is needed on the requests to Oracle Content.
  */
 export function isAuthNeeded() {
   if (process.env.AUTH || process.env.CLIENT_ID) {
@@ -135,7 +135,7 @@ export async function getAuthValue() {
 }
 
 /*
- * This function is called from the ContentSDK before it makes any REST calls.
+ * This function is called from the Oracle Content SDK before it makes any REST calls.
 
  * This is only called when rendering on the server.
  *
@@ -163,10 +163,11 @@ function beforeSendCallback(param) {
  * content from Oracle Content and Experience Cloud server.
  */
 export default function getClient() {
-  // When creating a client for the browser and authorization is needed for calls to OCE
+  // When creating a client for the browser and authorization is needed for calls to
+  // Oracle Content
   // - all requests (content and images) are to be proxied through this application's
   //   Express server
-  // - the ServerURL for the ContentSDK client will be this application's host
+  // - the ServerURL for the Oracle Content SDK client will be this application's host
   //
   // See the following files where proxying is setup/done
   // - 'src/scripts/utils.getImageUrl' for the code proxying requests for image binaries
@@ -183,13 +184,13 @@ export default function getClient() {
     channelToken: process.env.CHANNEL_TOKEN,
   };
 
-  // if authorization is needed to get data from OCE and this is running on the server, add the
-  // 'beforeSend' callback so the authorization header can be added to the OCE server requests
+  // if authorization is needed to get data from Oracle Content and this is running on the server, add the
+  // 'beforeSend' callback so the authorization header can be added to Oracle Content requests
   if (isAuthNeeded() && !isBrowser) {
     serverconfig.beforeSend = beforeSendCallback;
   }
 
-  // Add the following if you want logging from the ContentSDK shown in the console
+  // Add the following if you want logging from the Oracle Content SDK shown in the console
   // serverconfig.logger = console;
 
   // create and return the relevant client

@@ -81,12 +81,12 @@ export function app() {
   /*
    * Route handler for requests to '/content/'.
    *
-   * When authorization is needed for the calls to OCE
+   * When authorization is needed for the calls to Oracle Content
    * - all image requests will be proxied through here regardless of server or client side rendering
    * - browser requests for content are proxied through here (server content requests will never be
    *   proxied)
-   * - this server will pass on the call to the OCE server adding on the authorization headers and
-   *   returning the OCE response.
+   * - this server will pass on the call to Oracle Content adding on the authorization headers and
+   *   returning the Oracle Content response.
    * This ensures the browser will never have the authorization header visible in its requests.
    *
    * See the following files where proxying is setup

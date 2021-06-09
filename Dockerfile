@@ -12,7 +12,7 @@
 FROM node:10
 
 LABEL maintainer="ben.staveley-taylor@oracle.com"
-LABEL description="Oracle Content SDK Tutorials -- Angular (OCE Minimal)"
+LABEL description="Oracle Content SDK Tutorials -- Angular (Oracle Content Minimal)"
 
 # Create app directory
 WORKDIR /usr/src/devx

@@ -31,8 +31,8 @@ declare const Buffer: any;
  *
  * When authentication is required, a "beforeSend" function has to be specified when creating
  * the Content SDK client.  This callback function is called just before the REST request
- * is made to Oracle Content in order for the caller to add additional things to the request. This is where
- * the Authorization header is added.
+ * is made to Oracle Content in order for the caller to add additional things to the request.
+ * This is where the Authorization header is added.
  */
 
 /*
@@ -184,8 +184,9 @@ export default function getClient() {
     channelToken: process.env.CHANNEL_TOKEN,
   };
 
-  // if authorization is needed to get data from Oracle Content and this is running on the server, add the
-  // 'beforeSend' callback so the authorization header can be added to Oracle Content requests
+  // if authorization is needed to get data from Oracle Content and this is running on the server,
+  // add the 'beforeSend' callback so the authorization header can be added to Oracle Content
+  // requests
   if (isAuthNeeded() && !isBrowser) {
     serverconfig.beforeSend = beforeSendCallback;
   }

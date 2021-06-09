@@ -120,7 +120,7 @@ export async function getAuthValue() {
       const authDetails = await getBearerAuth();
       globalAuthValue = authDetails.authHeaderValue;
       // Auth Expiry
-      // calculate expiry, get the current data (in ms), add the expiry ms, then
+      // calculate expiry, get the current date (in ms), add the expiry ms, then
       // create a new Date object, using the adjusted milliseconds time
       let currDateMS = Date.now();
       currDateMS += authDetails.expiry;

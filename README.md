@@ -1,4 +1,4 @@
-# Content and Experience Cloud - Headless CMS Development Tutorials
+# Oracle Content Management - Headless CMS Development Tutorials
 
 ### Getting Started
 short description of tutorial

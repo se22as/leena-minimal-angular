@@ -160,7 +160,7 @@ function beforeSendCallback(param) {
 
 /**
  * Returns a Delivery Client or a Preview Client to be used to access
- * content from Oracle Content and Experience Cloud server.
+ * content from Oracle Content Management server.
  */
 export default function getClient() {
   // When creating a client for the browser and authorization is needed for calls to

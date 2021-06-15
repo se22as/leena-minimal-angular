@@ -125,7 +125,7 @@ function run() {
   const server = app();
   server.listen(port, () => {
     // eslint-disable-next-line no-console
-    console.log(`Node Express server listening on http://localhost:${port}`);
+    console.log(`Application is accesssible on : http://localhost:${port}`);
   });
 }
 

@@ -115,7 +115,7 @@ export async function getAuthValue() {
     // if the auth token has expired, refresh it, otherwise existing value will be returned
     // add a 5 second buffer to the expiry time
     if (!globalAuthValue || !globalAuthExpiry
-       || (globalAuthExpiry.getTime() + FIVE_SECONDS_MS) > currentDate.getTime()) {
+       || (globalAuthExpiry.getTime() - FIVE_SECONDS_MS) > currentDate.getTime()) {
       globalAuthValue = '';
       const authDetails = await getBearerAuth();
       globalAuthValue = authDetails.authHeaderValue;

@@ -6,7 +6,7 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
-import { createDeliveryClient, createPreviewClient } from '@oracle/content';
+import { createDeliveryClient, createPreviewClient } from '@oracle/content-management-sdk';
 import fetch from 'node-fetch';
 
 declare const process: any;

@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { MinimalMain, ImageRenditions } from '../../interfaces/interfaces';
 
-
 /**
  * Component for the Home page.
  *
@@ -29,6 +28,7 @@ export class PageComponent implements OnInit {
    * Set the title in the constructor.
    */
   constructor(private route: ActivatedRoute, private titleService: Title) {
+    console.log('--------------- PAGE COMPONENT | CONSTRUCTOR ---------------');
     this.titleService.setTitle('Home');
   }
 
@@ -37,9 +37,11 @@ export class PageComponent implements OnInit {
    * using a resolver before this component was created
    */
   ngOnInit() {
-    console.log('in page component %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%');
+    console.log('--------------- PAGE COMPONENT | ngOnInit ---------------');
     const { data } = this.route.snapshot;
+    console.log('PageComponent | ngOnInit | appData = ');
     this.appData = data.appData;
+    console.log('PageComponent | ngOnInit | appData = ');
     console.log(this.appData);
     this.headerRenditionURLs = this.appData.headerRenditionURLs;
     this.footerRenditionURLs = this.appData.footerRenditionURLs;

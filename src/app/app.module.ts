@@ -30,20 +30,20 @@ const appRoutes: Routes = [
     resolve: { appData: PageDataResolver },
   },
   // home page
+  // {
+  //   path: 'home',
+  //   component: HomePageComponent,
+  //   resolve: { urls: HomePageDataResolver },
+  // },
+  // // Contact us page
+  // {
+  //   path: 'contact',
+  //   component: ContactUsPageComponent,
+  //   resolve: { urls: ContactUsPageDataResolver },
+  // },
+  // // no path specified, go to home
   {
-    path: 'home',
-    component: HomePageComponent,
-    resolve: { urls: HomePageDataResolver },
-  },
-  // Contact us page
-  {
-    path: 'contact',
-    component: ContactUsPageComponent,
-    resolve: { urls: ContactUsPageDataResolver },
-  },
-  // no path specified, go to home
-  {
-    path: '', redirectTo: '/home', pathMatch: 'full',
+    path: '', redirectTo: '/page/home', pathMatch: 'full',
   },
 ];
 

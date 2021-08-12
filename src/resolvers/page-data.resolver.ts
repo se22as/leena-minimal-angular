@@ -7,8 +7,8 @@ import { isPlatformServer } from '@angular/common';
 import { makeStateKey, TransferState } from '@angular/platform-browser';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 
-import { fetchOceMinimalMain, fetchPage } from '../scripts/services';
-
+// import { fetchOceMinimalMain, fetchPage } from '../scripts/services';
+import { fetchOceMinimalMain } from '../scripts/services';
 
 /**
  * Gets all the data required for the Home Page.
@@ -32,31 +32,36 @@ export class PageDataResolver implements Resolve<any> {
    *
    * @param route the current route
    */
-   resolve(route: ActivatedRouteSnapshot) {
-    const pageSlug = route.paramMap.get('slug');
+  resolve(route: ActivatedRouteSnapshot) {
+    // const pageSlug = route.paramMap.get('slug');
     const APP_KEY = makeStateKey('APPDATA');
     // const DATA_KEY = makeStateKey(`PAGE${pageSlug}`);
     if (this.transferState.hasKey(APP_KEY)) {
       // client is hydrating, server rendered content has
       // already added the data to the transfer state
-      const data = this.transferState.get(APP_KEY, null);
+      const appData = this.transferState.get(APP_KEY, null);
       this.transferState.remove(APP_KEY);
-      return data;
+      return appData;
     }
     // server side rendering or client side rendering on client side navigation,
     // there is no transfer state therefore get the data from the OCE server
     return fetchOceMinimalMain()
       .then((appData) => {
-        fetchPage(pageSlug).then((pageData) => {
-          if (isPlatformServer(this.platformId)) {
-            this.transferState.set(APP_KEY, appData);
-            // this.transferState.set(DATA_KEY, pageData);
-          }
-          console.log('IN PAGE DATA RESOLVER');
-          console.log(appData);
-          // return {appData, pageData};
-          return appData;
-        });
+        if (isPlatformServer(this.platformId)) {
+          this.transferState.set(APP_KEY, appData);
+        }
+        console.log('--------------------PAGE DATA RESOLVER (SERVER) | returning appData -------------------------------------');
+        return appData;
+        // fetchPage(pageSlug).then((pageData) => {
+        //   if (isPlatformServer(this.platformId)) {
+        //     this.transferState.set(APP_KEY, appData);
+        //     // this.transferState.set(DATA_KEY, pageData);
+        //   }
+        //   console.log('IN PAGE DATA RESOLVER');
+        //   console.log(appData);
+        //   // return {appData, pageData};
+        //   return appData;
+        // });
       });
   }
 }

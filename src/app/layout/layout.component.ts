@@ -28,8 +28,6 @@ export class LayoutComponent implements OnInit {
    * using a resolver before this component was created
    */
   ngOnInit() {
-    console.log('in layout component');
-    console.log(this.route.snapshot.data);
     const { data } = this.route.snapshot;
     const { appData } = data;
     this.headerRenditionURLs = appData.headerRenditionURLs;

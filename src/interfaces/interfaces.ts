@@ -19,6 +19,19 @@ export interface ImageRenditions {
   height: string;
 }
 
+export interface MinimalMain {
+  headerRenditionURLs: ImageRenditions;
+  footerRenditionURLs: ImageRenditions;
+}
+
+// export interface Page {
+//   id: string;
+//   name: string;
+//   description: string;
+//   fields: TopicFields;
+//   renditionUrls: ImageRenditions;
+// }
+
 // -- PROXY SERVER --
 
 // Note: the headers are optional in the HttpOptions

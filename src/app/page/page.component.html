@@ -4,14 +4,12 @@
 -->
 
 <!--
-  Component for main layout for any page in the application.
-
-  This component is just HTML, there is no logic.
+  HTML for the Home page.
 -->
-<div>
+<div id="home-container">
   <app-header [logoUrl]="headerRenditionURLs"></app-header>
 
-  <ng-content></ng-content>
+  Hello {{appData}}
 
   <app-footer [logoUrl]="footerRenditionURLs"></app-footer>
 </div>

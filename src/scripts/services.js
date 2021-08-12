@@ -108,3 +108,64 @@ export default function fetchImageURLs(imageNames) {
     })
     .catch((error) => logError('Fetching images failed', error));
 }
+
+/**
+ * Fetch the specified item given its slug
+ *
+ * @param {string} slug - the item slug whose details are to be obtained
+ * @param {string} expand - the fields that need to be expanded
+ * @returns {Promise({Object})} - A Promise containing the data
+ */
+ async function getItem(slug, expand) {
+  const client = getClient();
+  return client.getItem({
+    slug,
+    expand,
+    language: 'en',
+  }).then((asset) => asset)
+    .catch((error) => logError(`Fetching Item failed for slug ${slug}`, error));
+}
+
+/**
+ * Fetch the item with the slug of minimalmain
+ *
+ * @returns {Promise({Object})} - A Promise containing the data
+ */
+export async function fetchOceMinimalMain() {
+  const data = await getItem('minimalmain', 'fields.headerlogo,fields.footerlogo,fields.pages');
+  if (!data.hasError) {
+    const { fields } = data;
+    const { headerlogo, footerlogo } = fields;
+    // Extract the sourceset for the headerImage and footerImage and put it back in the data
+    data.headerRenditionURLs = getSourceSet(headerlogo);
+    data.footerRenditionURLs = getSourceSet(footerlogo);
+  }
+  return data;
+}
+
+/**
+ * Fetch the specified page content type given its slug
+ *
+ * @param {string} slug - the page slug whose details are to be obtained
+ * @returns {Promise({Object})} - A Promise containing the data
+ */
+export async function fetchPage(pageslug) {
+  // Get the page details
+  const page = await getItem(pageslug, 'fields.sections');
+  return page;
+}
+
+/**
+ * Return the rendition URLs for the specified item.
+ *
+ * @param {string} identifier - the item id whose rendition URLs are to be obtained
+ * @returns {Promise({Object})} - A Promise containing the data
+ */
+export function getRenditionURLs(identifier) {
+  const client = getClient();
+  return client.getItem({
+    id: identifier,
+    expand: 'fields.renditions',
+  }).then((asset) => getSourceSet(asset))
+    .catch((error) => logError('Fetching Rendition URLs failed', error));
+}

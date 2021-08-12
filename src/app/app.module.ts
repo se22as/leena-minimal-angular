@@ -15,13 +15,20 @@ import { HeaderComponent } from './header/header.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ImageWithTextComponent } from './image-with-text/image-with-text.component';
 import { LocationsComponent } from './locations/locations.component';
+import { PageComponent } from './page/page.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LayoutComponent } from './layout/layout.component';
 
+import { PageDataResolver } from '../resolvers/page-data.resolver';
 import { HomePageDataResolver } from '../resolvers/home-page-data.resolver';
 import { ContactUsPageDataResolver } from '../resolvers/contact-us-page-data.resolver';
 
 const appRoutes: Routes = [
+  {
+    path: 'page/:slug',
+    component: PageComponent,
+    resolve: { appData: PageDataResolver },
+  },
   // home page
   {
     path: 'home',
@@ -52,6 +59,7 @@ const appRoutes: Routes = [
     LocationsComponent,
     WelcomeComponent,
     LayoutComponent,
+    PageComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -64,6 +72,7 @@ const appRoutes: Routes = [
     Title,
     HomePageDataResolver,
     ContactUsPageDataResolver,
+    PageDataResolver,
   ],
   bootstrap: [
     AppComponent,

@@ -7,8 +7,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ImageRenditions } from '../../interfaces/interfaces';
 
-declare let process: any;
-
 /**
  * Component for main layout for any page in the application.
  *
@@ -19,9 +17,9 @@ declare let process: any;
   templateUrl: './layout.component.html',
 })
 export class LayoutComponent implements OnInit {
-  headerLogoURL: ImageRenditions;
+  headerRenditionURLs: ImageRenditions;
 
-  footerLogoURL: ImageRenditions;
+  footerRenditionURLs: ImageRenditions;
 
   constructor(private route: ActivatedRoute) {}
 
@@ -30,8 +28,11 @@ export class LayoutComponent implements OnInit {
    * using a resolver before this component was created
    */
   ngOnInit() {
+    console.log('in layout component');
+    console.log(this.route.snapshot.data);
     const { data } = this.route.snapshot;
-    this.headerLogoURL = data.urls[process.env.LOGO_FILE_NAME];
-    this.footerLogoURL = data.urls[process.env.FOOTER_LOGO_FILE_NAME];
+    const { appData } = data;
+    this.headerRenditionURLs = appData.headerRenditionURLs;
+    this.footerRenditionURLs = appData.footerRenditionURLs;
   }
 }

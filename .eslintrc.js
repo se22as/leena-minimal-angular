@@ -52,6 +52,7 @@ module.exports = {
   //
   rules: {
     // our own rules
+    'linebreak-style': 0,
     'no-empty-function': ['error', { allow: ['constructors'] }],
     '@typescript-eslint/naming-convention': 'warn',
 
@@ -91,7 +92,7 @@ module.exports = {
 
       rules: {
         'no-unused-vars': ['error', { vars: 'all', args: 'none', ignoreRestSiblings: true }],
-        'no-useless-constructor': 'off',        
+        'no-useless-constructor': 'off',
 
         // IMPORT
         'import/prefer-default-export': 'off',

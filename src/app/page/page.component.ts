@@ -20,6 +20,8 @@ import { MinimalMain, ImageRenditions } from '../../interfaces/interfaces';
 export class PageComponent implements OnInit {
   appData: MinimalMain;
 
+  pageData: Object; // TODO proper typing
+
   headerRenditionURLs: ImageRenditions;
 
   footerRenditionURLs: ImageRenditions;
@@ -28,7 +30,6 @@ export class PageComponent implements OnInit {
    * Set the title in the constructor.
    */
   constructor(private route: ActivatedRoute, private titleService: Title) {
-    console.log('--------------- PAGE COMPONENT | CONSTRUCTOR ---------------');
     this.titleService.setTitle('Home');
   }
 
@@ -37,12 +38,13 @@ export class PageComponent implements OnInit {
    * using a resolver before this component was created
    */
   ngOnInit() {
-    console.log('--------------- PAGE COMPONENT | ngOnInit ---------------');
-    const { data } = this.route.snapshot;
-    console.log('PageComponent | ngOnInit | appData = ');
-    this.appData = data.appData;
-    console.log('PageComponent | ngOnInit | appData = ');
-    console.log(this.appData);
+    // the data obtained from the resolver before this component is called, is exposed on the
+    // ActivatedRoute’s data property. The name of the field on the data object is the variable
+    // specified on the route (app.module.ts) which is addied the results of the resolver
+    const fullData = this.route.snapshot.data.routeData;
+    this.appData = fullData.appData;
+    this.pageData = fullData.pageData;
+
     this.headerRenditionURLs = this.appData.headerRenditionURLs;
     this.footerRenditionURLs = this.appData.footerRenditionURLs;
   }

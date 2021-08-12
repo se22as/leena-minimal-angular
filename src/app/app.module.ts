@@ -27,7 +27,7 @@ const appRoutes: Routes = [
   {
     path: 'page/:slug',
     component: PageComponent,
-    resolve: { appData: PageDataResolver },
+    resolve: { routeData: PageDataResolver },
   },
   // home page
   // {

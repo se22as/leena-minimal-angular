@@ -9,33 +9,28 @@
 <header id="header">
 
   <!-- Header Logo -->
-  <a [routerLink]="['/']" >
+  <a [routerLink]="['/page', pages[0].slug]"> >
     <picture>
-      <source type="image/webp" srcset={{logoUrl.srcset}} />
-      <img id="header-image" src={{logoUrl.native}} alt="Company Logo"
-        width={{logoUrl.width}} height={{logoUrl.height}} />
+      <source type="image/webp" srcset={{headerRenditionURLs.srcset}} />
+      <img id="header-image" src={{headerRenditionURLs.native}} alt="Company Logo"
+        width={{headerRenditionURLs.width}} height={{headerRenditionURLs.height}} />
     </picture>
   </a>
 
-  <!-- Menu : Home | Contact Us -->
+  <!-- Pages Nav -->
   <nav>
     <button id="nav-menu-button" (click)="onDropDownMenuButtonClicked()">☰</button>
     <ul id="nav-menu-items">
-      <li>
-        <a id="header-link-home"
-           style="text-decoration: none;"
-           [ngClass]="(currentNavIndex===0 )?'active':''"
-           (click)="onMenuItemClicked(0)"
-           [routerLink]="['/']">Home</a>
-      </li>
-      <li>
-        <a id="header-link-contactus"
-           style="text-decoration: none;"
-           [ngClass]="(currentNavIndex===1 )?'active':''"
-           (click)="onMenuItemClicked(1)"
-           [routerLink]="['/contact']">Contact Us</a>
-      </li>
+      <div *ngFor="let page of pages; index as i; ">
+        <li>
+          <a
+            [ngClass]="(currentPageSlug===page.slug )?'active':''"
+            style="text-decoration: none;"
+            (click)="onMenuItemClicked(i)"
+            [routerLink]="['/page', page.slug]">{{page.name}}</a>
+        </li>
+      </div >
+
     </ul>
   </nav>
-
 </header>

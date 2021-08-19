@@ -22,15 +22,32 @@ export interface ImageRenditions {
 export interface MinimalMain {
   headerRenditionURLs: ImageRenditions;
   footerRenditionURLs: ImageRenditions;
+  fields: any;
 }
 
-// export interface Page {
-//   id: string;
-//   name: string;
-//   description: string;
-//   fields: TopicFields;
-//   renditionUrls: ImageRenditions;
-// }
+export interface SectionField {
+  heading: string;
+  type: string;
+  body: string;
+  image: any;
+  renditionURLs: ImageRenditions;
+  actions: any;
+}
+
+export interface Section {
+  fields: SectionField;
+}
+
+export interface PageField {
+  sections: Section[];
+}
+
+export interface Page {
+  fields: PageField;
+  slug: string;
+  name: string;
+  hasError: boolean;
+}
 
 // -- PROXY SERVER --
 

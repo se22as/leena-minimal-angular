@@ -1,0 +1,25 @@
+<!--
+  Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+  Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+-->
+
+<!--
+  HTML for the Section Component.
+-->
+<picture *ngIf="renditionURLs">
+  <source type="image/webp" srcset={{renditionURLs.srcset}} />
+  <source srcset={{renditionURLs.jpgSrcset}} />
+  <img id="header-image" src={{renditionURLs.large}} alt="Company Logo"
+    width={{renditionURLs.width}} height={{renditionURLs.height}}/>
+</picture>
+<div class="textcontent">
+  <h1>{{heading}}</h1>
+  <div class="text">
+    <div [innerHTML]="body"></div>
+  </div>
+  <div *ngFor="let action of actions">
+      <a class="button" href="{{action.link}}">
+        {{action.name}}
+      </a>
+  </div>
+</div>

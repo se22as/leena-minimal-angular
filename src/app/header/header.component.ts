@@ -4,14 +4,15 @@
  */
 
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { ImageRenditions } from '../../interfaces/interfaces';
+import { ActivatedRoute } from '@angular/router';
+import { ImageRenditions, Page } from '../../interfaces/interfaces';
 
 /**
  * Component for the Header.
  *
  * This component receives all the data which it is to display.
- * @param logoUrl the URL for the image to be displayed in the header
+ * @param headerRenditionURLs the rendition URLs for the image to be displayed in the header
+ * @param pages the pages collection contained in the MinimalMain content type
  */
 @Component({
   selector: 'app-header',
@@ -20,16 +21,27 @@ import { ImageRenditions } from '../../interfaces/interfaces';
 export class HeaderComponent {
   // variables passed into this component from another component
   // (note: these could also be referenced in the HTML)
-  @Input() logoUrl: ImageRenditions;
+  @Input() headerRenditionURLs: ImageRenditions;
 
-  // variables whoses values are set in ngOnInit and are referenced from the html file
-  currentNavIndex: number;
+  @Input() pages: Page[];
+
+  currentPageSlug: string;
 
   /**
-   * Determine which Menu Item should be highlighted.
+   * Determine the current page slug from the request param
+   * which helps to determine which Nav Item should be highlighted.
    */
-  constructor(private router: Router) {
-    this.currentNavIndex = (this.router.url === '/contact') ? 1 : 0;
+  constructor(private route: ActivatedRoute) {
+    this.route.paramMap.subscribe((params) => {
+      this.currentPageSlug = params.get('slug');
+    });
+  }
+
+  ngOnInit() {
+    // for the root path, no param is present. Default to the first page slug
+    if (this.currentPageSlug === null || this.currentPageSlug === '') {
+      this.currentPageSlug = this.pages[0].slug;
+    }
   }
 
   /*
@@ -54,8 +66,6 @@ export class HeaderComponent {
    */
   onMenuItemClicked(index: number) {
     // set the current nav index
-    this.currentNavIndex = index;
-
     // Close the menu and update the button styling
     const dropDownMenu = document.getElementById('nav-menu-items');
     const menuButton = document.getElementById('nav-menu-button');

@@ -3,34 +3,61 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { MinimalMain, ImageRenditions } from '../../interfaces/interfaces';
+import {
+  MinimalMain,
+  ImageRenditions,
+  Page,
+  Section,
+} from '../../interfaces/interfaces';
 
 /**
- * Component for the Home page.
+ * Component for the Page.
  *
- * The HomePageDataResolver gets all the data before this component is created.
+ * The PageDataResolver gets all the data before this component is created.
  */
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
 })
-export class PageComponent implements OnInit {
+export class PageComponent implements OnInit, OnDestroy {
   appData: MinimalMain;
 
-  pageData: Object; // TODO proper typing
+  pages: Page[];
+
+  pageData: Page;
+
+  sections: Section[];
 
   headerRenditionURLs: ImageRenditions;
 
   footerRenditionURLs: ImageRenditions;
 
+  navigationSubscription;
+
   /*
    * Set the title in the constructor.
    */
-  constructor(private route: ActivatedRoute, private titleService: Title) {
-    this.titleService.setTitle('Home');
+  constructor(private router: Router, private route: ActivatedRoute, private titleService: Title) {
+    this.navigationSubscription = this.router.events.subscribe((e: any) => {
+      // If it is a NavigationEnd event re-initalise the component
+      if (e instanceof NavigationEnd) {
+        this.initialiseInvites();
+      }
+    });
+  }
+
+  initialiseInvites() {
+    // Set default values and re-fetch any data you need.
+    this.ngOnInit();
+  }
+
+  ngOnDestroy() {
+    if (this.navigationSubscription) {
+      this.navigationSubscription.unsubscribe();
+    }
   }
 
   /*
@@ -43,9 +70,14 @@ export class PageComponent implements OnInit {
     // specified on the route (app.module.ts) which is addied the results of the resolver
     const fullData = this.route.snapshot.data.routeData;
     this.appData = fullData.appData;
-    this.pageData = fullData.pageData;
-
     this.headerRenditionURLs = this.appData.headerRenditionURLs;
     this.footerRenditionURLs = this.appData.footerRenditionURLs;
+
+    this.pageData = fullData.pageData;
+    if (!this.pageData.hasError) {
+      this.sections = this.pageData.fields.sections;
+      this.pages = this.appData.fields.pages;
+      this.titleService.setTitle(this.pageData.name);
+    }
   }
 }

@@ -8,70 +8,46 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ConnectWithUsComponent } from './connect-with-us/connect-with-us.component';
-import { ContactUsPageComponent } from './contact-us-page/contact-us-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { ImageWithTextComponent } from './image-with-text/image-with-text.component';
-import { LocationsComponent } from './locations/locations.component';
 import { PageComponent } from './page/page.component';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { LayoutComponent } from './layout/layout.component';
+import { SectionComponent } from './section/section';
 
 import { PageDataResolver } from '../resolvers/page-data.resolver';
-import { HomePageDataResolver } from '../resolvers/home-page-data.resolver';
-import { ContactUsPageDataResolver } from '../resolvers/contact-us-page-data.resolver';
 
 const appRoutes: Routes = [
+  // no path specified, redirect to /page/ with no slug param specified
+  {
+    path: '',
+    redirectTo: '/page/',
+    pathMatch: 'full',
+    runGuardsAndResolvers: 'always',
+  },
   {
     path: 'page/:slug',
     component: PageComponent,
     resolve: { routeData: PageDataResolver },
-  },
-  // home page
-  // {
-  //   path: 'home',
-  //   component: HomePageComponent,
-  //   resolve: { urls: HomePageDataResolver },
-  // },
-  // // Contact us page
-  // {
-  //   path: 'contact',
-  //   component: ContactUsPageComponent,
-  //   resolve: { urls: ContactUsPageDataResolver },
-  // },
-  // // no path specified, go to home
-  {
-    path: '', redirectTo: '/page/home', pathMatch: 'full',
+    runGuardsAndResolvers: 'always',
   },
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConnectWithUsComponent,
-    ContactUsPageComponent,
     FooterComponent,
     HeaderComponent,
-    HomePageComponent,
-    ImageWithTextComponent,
-    LocationsComponent,
-    WelcomeComponent,
-    LayoutComponent,
     PageComponent,
+    SectionComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserTransferStateModule,
     RouterModule.forRoot( // <-- debugging purposes only
-      appRoutes, { enableTracing: true, initialNavigation: 'enabled' },
+      appRoutes, { enableTracing: false, initialNavigation: 'enabled', onSameUrlNavigation: 'reload' },
     ),
   ],
   providers: [
     Title,
-    HomePageDataResolver,
-    ContactUsPageDataResolver,
     PageDataResolver,
   ],
   bootstrap: [

@@ -53,6 +53,7 @@ module.exports = {
   rules: {
     // our own rules
     'linebreak-style': 0,
+    'no-console': 'off',
     'no-empty-function': ['error', { allow: ['constructors'] }],
     '@typescript-eslint/naming-convention': 'warn',
 

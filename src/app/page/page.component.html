@@ -7,9 +7,22 @@
   HTML for the Home page.
 -->
 <div id="home-container">
-  <app-header [logoUrl]="headerRenditionURLs"></app-header>
+  <app-header [pages]="pages" [headerRenditionURLs]="headerRenditionURLs"></app-header>
 
-  Hello {{appData}}
+  <!-- Page sections go here -->
+  <div className="error" *ngIf="pageData.hasError; else elseBlock">
+    <h1>Error !</h1>
+    <p>Sorry, the page you are requesting has not been found.</p>
+  </div>
+  <ng-template #elseBlock>
+    <div id="sections">
+      <section class="{{'content ' + section.fields.type}}" *ngFor="let section of sections">
+        <div>
+          <app-section [section]="section" ></app-section>
+        </div>
+      </section>
+    </div>
+  </ng-template>
 
-  <app-footer [logoUrl]="footerRenditionURLs"></app-footer>
+  <app-footer [footerRenditionURLs]="footerRenditionURLs"></app-footer>
 </div>

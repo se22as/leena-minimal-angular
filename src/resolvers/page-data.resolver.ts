@@ -32,7 +32,7 @@ export class PageDataResolver implements Resolve<any> {
    * @param route the current route
    */
   resolve(route: ActivatedRouteSnapshot) {
-    const pageSlug = route.paramMap.get('slug');
+    let pageSlug = route.paramMap.get('slug');
 
     // two pieces of information is obtained, the main minimal content item (APPDATA)
     // and the data for the specific page identified by the slug (PAGEDATA)
@@ -40,7 +40,6 @@ export class PageDataResolver implements Resolve<any> {
     // but this resolver returns them in a single object
     const APP_KEY = makeStateKey('APPDATA');
     const PAGE_KEY = makeStateKey('PAGEDATA');
-
     if (this.transferState.hasKey(APP_KEY)) {
       // client is hydrating, server rendered content has
       // already added the data to the transfer state
@@ -56,16 +55,21 @@ export class PageDataResolver implements Resolve<any> {
     // server side rendering or client side rendering on client side navigation,
     // there is no transfer state therefore get the data from the OCE server
     return fetchOceMinimalMain()
-      .then((appData) => fetchPage(pageSlug).then((pageData) => {
-        if (isPlatformServer(this.platformId)) {
-          // add the two pieces of data to the transfer state separately
-          this.transferState.set(APP_KEY, appData);
-          this.transferState.set(PAGE_KEY, pageData);
+      .then((appData) => {
+        if (pageSlug === null || pageSlug === '') {
+          pageSlug = appData.fields.pages[0].slug;
         }
+        return fetchPage(pageSlug).then((pageData) => {
+          if (isPlatformServer(this.platformId)) {
+            // add the two pieces of data to the transfer state separately
+            this.transferState.set(APP_KEY, appData);
+            this.transferState.set(PAGE_KEY, pageData);
+          }
 
-        // return the two pieces of data in a single object
-        const fullData = { appData, pageData };
-        return fullData;
-      }));
+          // return the two pieces of data in a single object
+          const fullData = { appData, pageData };
+          return fullData;
+        });
+      });
   }
 }

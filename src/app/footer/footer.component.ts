@@ -10,7 +10,7 @@ import { ImageRenditions } from '../../interfaces/interfaces';
  * Component for the Footer.
  *
  * This component receives all the data which it is to display.
- * @param logoUrl the URL for the image to be displayed in the footer
+ * @param footerRenditionURLs the rendition URLs for the image to be displayed in the footer
  */
 @Component({
   selector: 'app-footer',
@@ -19,5 +19,5 @@ import { ImageRenditions } from '../../interfaces/interfaces';
 export class FooterComponent {
   // variables passed into this component from another component
   // (note: these could also be referenced in the HTML)
-  @Input() logoUrl: ImageRenditions;
+  @Input() footerRenditionURLs: ImageRenditions;
 }

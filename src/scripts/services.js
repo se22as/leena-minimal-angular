@@ -3,14 +3,18 @@
  * Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
  */
 /* eslint-disable no-param-reassign */
-/* eslint-disable no-console */
+
+/**
+ * This file contains a number of utility methods used to obtain data
+ * from the server using the Oracle Content SDK JavaScript Library.
+ */
 
 import getClient from './server-config-utils';
 import getImageUrl from './utils';
 
-/*
- * Utility method to log an error.
- */
+/**
+* Utility method to log an error.
+*/
 function logError(message, error) {
   if (error && error.statusMessage) {
     console.log(`${message} : `, error.statusMessage);
@@ -21,15 +25,22 @@ function logError(message, error) {
   } else if (error) {
     console.error(message, error);
   }
+  return {
+    hasError: true,
+    statusCode: error.statusCode,
+    statusMessage: error.statusMessage,
+    errno: error.errno,
+    code: error.code,
+  };
 }
 
 /**
- * Private method for adding the specified format rendition to the rendition string
- *
- * @param {Object} url - the url which contains the rendition strings
- * @param {Object} rendition - the rendition field of the content sdk json object
- * @param {String} formatstr - the format string type - either webp or jpg
- */
+* Private method for adding the specified format rendition to the rendition string
+*
+* @param {Object} url - the url which contains the rendition strings
+* @param {Object} rendition - the rendition field of the content sdk json object
+* @param {String} formatstr - the format string type - either webp or jpg
+*/
 function addRendition(urls, rendition, formatstr) {
   // Get the webp format field
   const format = rendition.formats.filter((item) => item.format === `${formatstr}`)[0];
@@ -47,12 +58,12 @@ function addRendition(urls, rendition, formatstr) {
 }
 
 /**
- * Retrieve the sourceset for an asset that is constructed from the rendition
- *
- * @param {asset} client - the asset whose fields contain the various renditions
- * @returns {Object} - An Object containing the the sourceset as well as individual rendition
- * url that can be used as default src
- */
+* Retrieve the sourceset for an asset that is constructed from the rendition
+*
+* @param {asset} client - the asset whose fields contain the various renditions
+* @returns {Object} - An Object containing the the sourceset as well as individual rendition
+* url that can be used as default src
+*/
 function getSourceSet(asset) {
   const urls = {};
   urls.srcset = '';
@@ -72,51 +83,13 @@ function getSourceSet(asset) {
 }
 
 /**
- * Fetch the URLs for the specified named images.
- *
- * The data returned is a map of image name to image url.
- *
- * @param {DelivryClient} client - the delivery client
- * @param {array} imageNames - Array of item names to get from the server
- * @returns {Promise({Object})} - A Promise containing the data
- */
-export default function fetchImageURLs(imageNames) {
-  const client = getClient();
-  // Build up the query predicate of the format :
-  // 'name eq "name1" OR name eq "name2" OR name eq "name3"'
-  let predicate = '';
-  for (let i = 0; i < imageNames.length; i += 1) {
-    if (i > 0) {
-      predicate += ' OR ';
-    }
-    predicate += `name eq "${imageNames[i]}"`;
-  }
-  const queryString = `((${predicate}) AND type eq "Image")`;
-  // Search for the items and get the Rendition URL for each item
-  return client
-    .queryItems({
-      q: queryString,
-    })
-    .then((result) => {
-      const imageURLs = {};
-      const { items } = result;
-      for (let i = 0; i < items.length; i += 1) {
-        const urls = getSourceSet(items[i]);
-        imageURLs[items[i].name] = urls;
-      }
-      return imageURLs;
-    })
-    .catch((error) => logError('Fetching images failed', error));
-}
-
-/**
- * Fetch the specified item given its slug
- *
- * @param {string} slug - the item slug whose details are to be obtained
- * @param {string} expand - the fields that need to be expanded
- * @returns {Promise({Object})} - A Promise containing the data
- */
- async function getItem(slug, expand) {
+* Fetch the specified item given its slug
+*
+* @param {string} slug - the item slug whose details are to be obtained
+* @param {string} expand - the fields that need to be expanded
+* @returns {Promise({Object})} - A Promise containing the data
+*/
+async function getItem(slug, expand) {
   const client = getClient();
   return client.getItem({
     slug,
@@ -127,10 +100,10 @@ export default function fetchImageURLs(imageNames) {
 }
 
 /**
- * Fetch the item with the slug of minimalmain
- *
- * @returns {Promise({Object})} - A Promise containing the data
- */
+* Fetch the item with the slug of minimalmain
+*
+* @returns {Promise({Object})} - A Promise containing the data
+*/
 export async function fetchOceMinimalMain() {
   const data = await getItem('minimalmain', 'fields.headerlogo,fields.footerlogo,fields.pages');
   if (!data.hasError) {
@@ -144,11 +117,11 @@ export async function fetchOceMinimalMain() {
 }
 
 /**
- * Fetch the specified page content type given its slug
- *
- * @param {string} slug - the page slug whose details are to be obtained
- * @returns {Promise({Object})} - A Promise containing the data
- */
+* Fetch the specified page content type given its slug
+*
+* @param {string} slug - the page slug whose details are to be obtained
+* @returns {Promise({Object})} - A Promise containing the data
+*/
 export async function fetchPage(pageslug) {
   // Get the page details
   const page = await getItem(pageslug, 'fields.sections');
@@ -156,11 +129,11 @@ export async function fetchPage(pageslug) {
 }
 
 /**
- * Return the rendition URLs for the specified item.
- *
- * @param {string} identifier - the item id whose rendition URLs are to be obtained
- * @returns {Promise({Object})} - A Promise containing the data
- */
+* Return the rendition URLs for the specified item.
+*
+* @param {string} identifier - the item id whose rendition URLs are to be obtained
+* @returns {Promise({Object})} - A Promise containing the data
+*/
 export function getRenditionURLs(identifier) {
   const client = getClient();
   return client.getItem({

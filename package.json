@@ -39,6 +39,7 @@
     "rxjs": "~6.6.3",
     "tls": "~0.0.1",
     "tslib": "~2.0.0",
+    "xss": "^1.0.8",
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
